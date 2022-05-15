@@ -1,0 +1,88 @@
+.language {
+  position: relative;
+  padding: 39px 0;
+}
+
+.language__selected {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.language__selected span {
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 22px;
+
+  color: var(--white);
+  margin-right: 8px;
+}
+
+.language__list {
+  max-height: 200px;
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  background-color: var(--black);
+  overflow-y: auto;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.language:hover .language__list {
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.language__list span {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  text-transform: uppercase;
+  color: var(--white);
+  cursor: pointer;
+  padding: 10px 5px;
+  transition: all 0.3s ease;
+}
+
+.language__list span[data-active="true"] {
+  background-color: var(--yellow);
+}
+
+.language__list span:hover {
+  background-color: var(--yellow);
+}
+
+.language__list span:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .language__list span {
+    font-size: 12px;
+  }
+
+  .language__list span {
+    padding: 5px;
+  }
+
+  .language__selected span {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .language__list span {
+    font-size: 10px;
+  }
+
+  .language__selected span {
+    font-size: 12px;
+  }
+}

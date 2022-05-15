@@ -1,0 +1,261 @@
+.nav-menu nav {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 448px;
+  background-color: var(--black);
+  padding: 60px 0;
+  bottom: 0;
+  z-index: 9;
+  transition: left 0.4s ease;
+}
+
+.nav__icon {
+  cursor: pointer;
+}
+
+.nav__icon circle {
+  stroke-width: 2px;
+}
+
+.nav__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 12px;
+  padding-left: 36px;
+}
+
+.nav__header h4 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 24px;
+  color: var(--white);
+  margin-bottom: 0;
+}
+
+.nav__header span {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.nav-menu nav form {
+  position: relative;
+  padding: 36px 12px 36px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-menu nav form input {
+  border: 2px solid var(--yellow);
+  border-radius: 7px;
+  outline: none;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 22px;
+  color: var(--yellow);
+  padding: 13px 55px 13px 16px;
+  height: 48px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.nav-menu nav form button {
+  position: absolute;
+  top: 36px;
+  right: 14px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--yellow);
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 0 7px 7px 0;
+  transition: all 0.3s ease;
+}
+
+.nav-menu nav form button:hover {
+  background-color: transparent;
+  border: 2px solid var(--yellow);
+  border-right: unset;
+  border-top: unset;
+  border-bottom: unset;
+}
+
+.nav-menu nav form button svg {
+  fill: var(--black);
+  transition: all 0.3s ease;
+}
+
+.nav-menu nav form button:hover svg {
+  fill: var(--white);
+}
+
+.nav-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav__parent {
+  width: 100%;
+}
+
+.nav__parent li {
+  position: relative;
+  height: 48px;
+}
+
+.nav__parent li div {
+  padding: 13px 22px 13px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 48px;
+}
+
+.nav__parent li div:hover,
+.nav__parent li div.active {
+  background-color: var(--yellow);
+}
+
+.nav__parent li div:hover a,
+.nav__parent li div.active a {
+  color: var(--black);
+}
+
+.nav__parent li div:hover span svg {
+  fill: var(--black);
+}
+
+.nav__parent li div a {
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: 0.005em;
+  font-feature-settings: "tnum" on, "lnum" on;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 36px;
+  right: 0;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav__parent li div span {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.nav__parent li div span svg {
+  width: 8px;
+  height: 12px;
+  transform-origin: center;
+  transition: all 0.5s ease;
+}
+
+.nav__parent li:hover div span svg {
+  transform: rotate(90deg);
+}
+
+.first__children {
+  visibility: hidden;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  transform-origin: top center;
+  transform: scaleY(0);
+  height: 0;
+}
+
+.nav__parent li:hover ul {
+  height: max-content;
+  opacity: 1;
+  visibility: visible;
+  overflow: unset;
+  transform: scaleY(1);
+}
+
+.first__children li div {
+  padding: 14px 22px 14px 50px;
+}
+
+.nav__overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 8;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+}
+
+.nav-menu nav.active {
+  left: 0;
+}
+
+@media (max-width: 576px) {
+  .nav-menu nav {
+    left: -140%;
+    width: 240px;
+    padding: 32px 0 60px 0;
+  }
+
+  .nav-menu nav form {
+    padding: 20px 12px 24px 18px;
+  }
+
+  .nav-menu nav form input {
+    border: 1px solid var(--yellow);
+    border-radius: 7px;
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .nav-menu nav form button {
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    top: 20px;
+    border: 1px solid var(--yellow);
+  }
+
+  .nav__parent li div {
+    padding: 14px 22px 14px 24px;
+  }
+
+  .first__children li div {
+    padding-right: 25px;
+    padding-left: 35px;
+  }
+
+  .nav__parent li div a {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .nav__header h4 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .nav__header {
+    padding-right: 12px;
+    padding-left: 24px;
+  }
+
+  .nav__icon circle {
+    stroke-width: 1px;
+  }
+}

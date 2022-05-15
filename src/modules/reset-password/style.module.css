@@ -1,0 +1,22 @@
+.custom-input-1 {
+  margin-top: 24px;
+  margin-bottom: 28px;
+}
+
+.pincode-input-container input {
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 5px !important;
+  margin-right: 7px !important;
+  color: var(--white);
+}
+.pincode-input-container input:last-child {
+  margin-top: 12px !important;
+  margin-right: 0 !important;
+  margin-bottom: 28px !important;
+}
+.reset-password__code {
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #868686;
+}
