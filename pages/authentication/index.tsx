@@ -60,7 +60,7 @@ const AuthenticationPage = (props: any) => {
   );
 };
 
-export default AuthPage;
+export default AuthenticationPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await getData("/translations/?", locale, "");
