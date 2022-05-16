@@ -31,14 +31,13 @@ function MyApp({ Component, pageProps }: AppProps) {
               <ShareLinksContextProvider>
                 <NextNProgress
                   color="var(--yellow)"
-                  height={6}
+                  height={3}
                   options={{
                     showSpinner: false,
                     ease: "linear",
                   }}
                 />
                 <Component {...pageProps} />
-                <Footer />
                 <ToastContainer />
               </ShareLinksContextProvider>
             </ContactLinksContextProvider>

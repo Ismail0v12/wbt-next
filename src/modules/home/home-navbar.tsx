@@ -5,11 +5,18 @@ import NavMenu from "../../components/nav-menu";
 import CryptoIcon from "../../components/assets/icons/CryptoIcon";
 import TranslationContext from "../../providers/translation-context";
 import styles from "./style.module.css";
+import AuthenticationContext from "../../providers/authentication-context";
 
 function HomePageNavbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [authed, setAuthed] = useState(false);
   const { translations } = useContext(TranslationContext);
+  const { access } = useContext(AuthenticationContext);
 
+  useEffect(() => {
+    const isAuthed = access !== null ? true : false;
+    setAuthed(isAuthed);
+  }, [access]);
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
     if (scrollY > 300) {
@@ -66,7 +73,7 @@ function HomePageNavbar() {
                   {translations?.get_token_in_menu}
                 </span>
               </div>
-              <LinkQuery href="/profile" passHref>
+              <LinkQuery href={authed ? "/profile" : "/login"} passHref>
                 <a className="image__icon">
                   <CryptoIcon />
                 </a>

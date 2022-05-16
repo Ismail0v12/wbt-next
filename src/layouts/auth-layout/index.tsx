@@ -4,6 +4,7 @@ import { AuthPartners } from "./auth-partners";
 import { getData } from "../../api/BaseApi";
 import EarthIcon from "../../components/assets/icons/EarthIcon";
 import { useRouter } from "next/router";
+import { Footer } from "../../components/footer";
 
 interface CountryInterface {
   readonly longitude: number | undefined;
@@ -31,18 +32,21 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
   }, [router.locale, currentCountry]);
 
   return (
-    <section className="authlayout}">
-      <AuthHeader />
-      <div className="container">
-        <div className="auth__grid">
-          {children}
-          <div className="auth__map">
-            <EarthIcon country_code={country?.code} />
+    <>
+      <section className="authlayout}">
+        <AuthHeader />
+        <div className="container">
+          <div className="auth__grid">
+            {children}
+            <div className="auth__map">
+              <EarthIcon country_code={country?.code} />
+            </div>
           </div>
+          <AuthPartners />
         </div>
-        <AuthPartners />
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import { Footer } from "../../components/footer";
 import Spinner from "../../components/spinner";
 import AuthenticationContext from "../../providers/authentication-context";
 
@@ -12,16 +13,21 @@ export function ProfileLayout({ children }: ProfileLayoutProps) {
   const { push, asPath } = useRouter();
 
   if (typeof access === "string") {
-    if (access.length === 0) {
-      push("/login", "/login", { shallow: false });
-    }
-  }
-
-  if (typeof access === "string") {
-    if (access.length === 0) {
+    if (access.length === 0 || access === null) {
       return <Spinner />;
     }
   }
 
-  return <>{children}</>;
+  if (typeof access === "string") {
+    if (access.length === 0 || access === null) {
+      push("/login", asPath);
+    }
+  }
+
+  return (
+    <>
+      {children}
+      {access?.toString().length !== 0 && <Footer />}
+    </>
+  );
 }

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import HomePageBanner from "./home-banner";
 import HomePageContent from "./home-content";
-import HomePageNavbar from "./home-navbar";
+
 import Logo from "../../components/assets/logos/logo.png";
 import { ParticlesAnime } from "../../components/particles-anime";
 import Spinner from "../../components/spinner";
@@ -15,6 +16,10 @@ import { getData } from "../../api/BaseApi";
 interface HomePageProps {
   readonly translations: any;
 }
+
+const HomePageNavbar = dynamic(() => import("./home-navbar"), {
+  ssr: false,
+});
 
 const HomePage = ({ translations }: HomePageProps) => {
   const { locale, query } = useRouter();
