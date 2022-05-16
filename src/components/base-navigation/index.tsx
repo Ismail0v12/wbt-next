@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LinkQuery } from "../link-query";
 import Image from "next/image";
 import NavMenu from "../nav-menu";
@@ -6,9 +6,19 @@ import Logo from "../../components/assets/logos/logo.png";
 import CryptoIcon from "../assets/icons/CryptoIcon";
 import TranslationContext from "../../providers/translation-context";
 import styles from "./style.module.css";
+import AuthenticationContext from "../../providers/authentication-context";
 
 const BaseNavigation = () => {
+  const [authed, setAuthed] = useState(false);
   const { translations } = useContext(TranslationContext);
+  const { access } = useContext(AuthenticationContext);
+
+  useEffect(() => {
+    if (access !== null) {
+      setAuthed(true);
+    }
+  }, [access]);
+
   return (
     <div className={styles["base-navigation"]}>
       <nav>
@@ -50,7 +60,7 @@ const BaseNavigation = () => {
                   {translations?.get_token_in_menu}
                 </span>
               </div>
-              <LinkQuery passHref href="/profile">
+              <LinkQuery passHref href={authed ? "/profile" : "/login"}>
                 <a className="image__icon">
                   <CryptoIcon />
                 </a>

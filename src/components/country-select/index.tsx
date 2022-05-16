@@ -26,7 +26,7 @@ const CountrySelect = () => {
   const [term, setTerm] = useState("");
   const countryRef = useRef<HTMLDivElement | null>(null);
   const { push, pathname, asPath, query } = useRouter();
-
+  const queryCountry = query.country;
   useEffect(() => {
     const currentCountry = localStorage.getItem("country_code");
     getData("/countries/list/?", "en", currentCountry ?? "")
@@ -34,9 +34,13 @@ const CountrySelect = () => {
         setCountryList(res.data);
         if (currentCountry === null) {
           localStorage.setItem("country_code", res.data.current.code);
-          push(`${pathname}?country=${res.data.current.code}`, asPath, {
-            shallow: true,
-          });
+          push(
+            `${pathname}?country=${res.data.current.code}`,
+            `${pathname}?country=${res.data.current.code}`,
+            {
+              shallow: true,
+            }
+          );
         } else {
           push(`${pathname}?country=${currentCountry}`, asPath, {
             shallow: true,
@@ -44,7 +48,7 @@ const CountrySelect = () => {
         }
       })
       .catch((err) => console.log(err));
-  }, [query.country]);
+  }, [queryCountry]);
 
   useEffect(() => {
     if (openSelectCountry) {

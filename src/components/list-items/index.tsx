@@ -3,8 +3,8 @@ import { ListItemsContent } from "./list-items-content";
 import { ParticlesAnime } from "../particles-anime";
 import { ProductInterface } from "../../Interfaces/ProductInterface";
 import { BannerInterface } from "../../Interfaces/BannerInterface";
-import { BaseNavigation } from "../base-navigation";
 import styles from "./style.module.css";
+import { BaseNavigation } from "../base-navigation";
 
 interface ListItemsProps {
   readonly data: ProductInterface[] | undefined;

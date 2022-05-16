@@ -21,7 +21,8 @@ const LanguageSelect = () => {
   useEffect(() => {
     const currLang = localStorage.getItem("language_code");
     const currentCountry = localStorage.getItem("country_code");
-    getData("/countries/languages/?", locale, currentCountry ?? "")
+
+    getData("/countries/languages/?", locale, currentCountry)
       .then((res) => {
         setLanguageList(res.data);
         if (currLang !== null) {
@@ -29,8 +30,6 @@ const LanguageSelect = () => {
             locale: currLang,
           });
         } else {
-          console.log(res.data.current);
-
           push(pathname, asPath, {
             locale: res.data.current?.code,
           });
@@ -44,10 +43,7 @@ const LanguageSelect = () => {
     const item = languageList?.others.find(
       (langs: LanguageListNestedProps) => langs.code === text
     );
-
-    if (typeof window !== "undefined") {
-      localStorage.setItem("language_code", `${item?.code}`);
-    }
+    localStorage.setItem("language_code", `${item?.code}`);
 
     push(pathname, asPath, {
       locale: item?.code,

@@ -21,7 +21,7 @@ function ChangePassword(props: any) {
     }
   }, [isAuthorized, router]);
   return (
-    <AuthLayout>
+    <>
       <Head>
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.about_descr}`} />
@@ -64,8 +64,10 @@ function ChangePassword(props: any) {
         />
         <meta name="twitter:image" content="https://whitebridge.club/wbt.png" />
       </Head>
-      <ChangePasswordPage />
-    </AuthLayout>
+      <AuthLayout>
+        <ChangePasswordPage />
+      </AuthLayout>
+    </>
   );
 }
 

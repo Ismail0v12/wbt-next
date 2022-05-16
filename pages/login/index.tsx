@@ -9,7 +9,7 @@ const Login = dynamic(() => import("../../src/modules/login"));
 const LoginPage = (props: any) => {
   const { translations } = props;
   return (
-    <AuthLayout>
+    <>
       <Head>
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.about_descr}`} />
@@ -52,8 +52,10 @@ const LoginPage = (props: any) => {
         />
         <meta name="twitter:image" content="https://whitebridge.club/wbt.png" />
       </Head>
-      <Login translations={translations} />
-    </AuthLayout>
+      <AuthLayout>
+        <Login translations={translations} />
+      </AuthLayout>
+    </>
   );
 };
 

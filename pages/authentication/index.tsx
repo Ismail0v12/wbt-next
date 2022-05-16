@@ -12,7 +12,7 @@ const Auth = dynamic(() => import("../../src/modules/auth"), {
 const AuthenticationPage = (props: any) => {
   const { translations } = props;
   return (
-    <AuthLayout>
+    <>
       <Head>
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.about_descr}`} />
@@ -20,7 +20,7 @@ const AuthenticationPage = (props: any) => {
         <meta property="type" content="website" />
 
         <meta property="og:url" content="https://whitebridge.club" />
-        <meta property="og:title" content={`White Bridge Club `} />
+        <meta property="og:title" content={`White Bridge Club`} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={`White Bridge Club`} />
         <meta
@@ -55,8 +55,10 @@ const AuthenticationPage = (props: any) => {
         />
         <meta name="twitter:image" content="https://whitebridge.club/wbt.png" />
       </Head>
-      <Auth translations={translations} />
-    </AuthLayout>
+      <AuthLayout>
+        <Auth translations={translations} />
+      </AuthLayout>
+    </>
   );
 };
 
