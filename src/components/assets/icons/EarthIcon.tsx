@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 interface EarthIconProps {
-  readonly country_code: string | undefined;
+  readonly country_code: string | number | undefined;
 }
 
 function EarthIcon({ country_code, ...rest }: EarthIconProps) {

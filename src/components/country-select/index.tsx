@@ -1,15 +1,9 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
-import { getData } from "../../api/BaseApi";
 import { Image } from "../image";
 import styles from "./style.module.css";
 import CountrySelectContext from "../../providers/country-select-context";
-
-interface CountryListProps {
-  readonly current: CountryListOtherProps;
-  readonly others: CountryListOtherProps[];
-}
 
 export interface CountryListOtherProps {
   readonly flag: string;
@@ -18,37 +12,10 @@ export interface CountryListOtherProps {
 }
 
 const CountrySelect = () => {
-  const { selectCountryHandle } = useContext(CountrySelectContext);
-  const [countryList, setCountryList] = useState<CountryListProps | undefined>(
-    undefined
-  );
+  const { selectCountryHandle, countryList } = useContext(CountrySelectContext);
   const [openSelectCountry, setOpenSelectCountry] = useState<boolean>(false);
   const [term, setTerm] = useState("");
   const countryRef = useRef<HTMLDivElement | null>(null);
-  const { push, pathname, asPath, query } = useRouter();
-  const queryCountry = query.country;
-  useEffect(() => {
-    const currentCountry = localStorage.getItem("country_code");
-    getData("/countries/list/?", "en", currentCountry ?? "")
-      .then((res) => {
-        setCountryList(res.data);
-        if (currentCountry === null) {
-          localStorage.setItem("country_code", res.data.current.code);
-          push(
-            `${pathname}?country=${res.data.current.code}`,
-            `${pathname}?country=${res.data.current.code}`,
-            {
-              shallow: true,
-            }
-          );
-        } else {
-          push(`${pathname}?country=${currentCountry}`, asPath, {
-            shallow: true,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [queryCountry]);
 
   useEffect(() => {
     if (openSelectCountry) {

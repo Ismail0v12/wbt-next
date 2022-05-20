@@ -23,7 +23,7 @@ const UserPageNavbar = () => {
             </li>
             <li>
               <span>{translations?.contact_us}</span>
-              <SocialSubscription />
+              <SocialSubscription country="" />
             </li>
             <li>
               <LinkQuery href="/profile" passHref>

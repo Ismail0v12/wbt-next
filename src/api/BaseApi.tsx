@@ -69,12 +69,6 @@ const axiosApi = setupInterceptorsTo(
 
 export async function getData(url: string, lang?: any, country?: any) {
   const res = await axiosApi.get(url + `lang=${lang}&country=${country}`);
-
-  if (!res.statusText) {
-    throw new Error(
-      `Could not fetch url: ${res.request}, status:${res.statusText}`
-    );
-  }
   return res;
 }
 

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import useSWR from "swr";
 import { getData } from "../api/BaseApi";
 
@@ -14,12 +14,15 @@ const ContactLinksContext = createContext({
 export function ContactLinksContextProvider({
   children,
 }: ContactLinksContextProps) {
-  const { locale } = useRouter();
+  const [contactLinks, setContactLinks] = useState([]);
 
-  const { data } = useSWR("/contact-links/?", (url) =>
-    getData(url, locale || "en", "")
-  );
-  const context = { contactLinks: data?.data };
+  useEffect(() => {
+    getData("/contact-links/?", "", "").then((res) =>
+      setContactLinks(res.data)
+    );
+  }, []);
+
+  const context = { contactLinks };
 
   return (
     <ContactLinksContext.Provider value={context}>

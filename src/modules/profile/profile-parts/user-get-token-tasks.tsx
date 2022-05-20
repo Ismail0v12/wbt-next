@@ -91,7 +91,7 @@ function UserPageGetTokenTasks({
         <ol className={styles.gettoken__tasks}>
           <li className={styles.gettoken__subscribe}>
             <h4>{translations?.subscribe_to_socials}</h4>
-            <SocialSubscription />
+            <SocialSubscription country="it" />
           </li>
           <li className={styles.gettoken__subscribe}>
             <h4>

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
-import { getData } from "../../api/BaseApi";
 import styles from "./style.module.css";
+import CountrySelectContext from "../../providers/country-select-context";
 
-interface LanguageListProps {
+export interface LanguageListProps {
   readonly current: LanguageListNestedProps;
   readonly others: LanguageListNestedProps[];
 }
@@ -15,30 +15,8 @@ interface LanguageListNestedProps {
 }
 
 const LanguageSelect = () => {
-  const { locale, push, pathname, asPath } = useRouter();
-  const [languageList, setLanguageList] = useState<LanguageListProps | any>([]);
-
-  useEffect(() => {
-    const currLang = localStorage.getItem("language_code");
-    const currentCountry = localStorage.getItem("country_code");
-
-    getData("/countries/languages/?", locale, currentCountry)
-      .then((res) => {
-        setLanguageList(res.data);
-        if (currLang !== null) {
-          push(pathname, asPath, {
-            locale: currLang,
-          });
-        } else {
-          push(pathname, asPath, {
-            locale: res.data.current?.code,
-          });
-          localStorage.setItem("language_code", res.data.current?.code);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [locale]);
-
+  const { push, pathname, asPath } = useRouter();
+  const { languageList } = useContext(CountrySelectContext);
   function changeLanguage(text: string) {
     const item = languageList?.others.find(
       (langs: LanguageListNestedProps) => langs.code === text

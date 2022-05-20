@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { AuthHeader } from "./auth-header";
 import { AuthPartners } from "./auth-partners";
-import { getData } from "../../api/BaseApi";
 import EarthIcon from "../../components/assets/icons/EarthIcon";
-import { useRouter } from "next/router";
 import { Footer } from "../../components/footer";
+import CountrySelectContext from "../../providers/country-select-context";
 
 interface CountryInterface {
   readonly longitude: number | undefined;
@@ -17,19 +16,7 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
-  const [country, setCountry] = useState<CountryInterface | undefined>(
-    undefined
-  );
-
-  const router = useRouter();
-  const currentCountry =
-    router.query.country === null ? "" : router.query.country;
-
-  useEffect(() => {
-    getData("/countries/current/?", router.locale, currentCountry ?? "")
-      .then((res) => setCountry(res.data))
-      .catch((err) => console.log(err));
-  }, [router.locale, currentCountry]);
+  const { countryList } = useContext(CountrySelectContext);
 
   return (
     <>
@@ -39,7 +26,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           <div className="auth__grid">
             {children}
             <div className="auth__map">
-              <EarthIcon country_code={country?.code} />
+              <EarthIcon country_code={countryList?.current.code} />
             </div>
           </div>
           <AuthPartners />
