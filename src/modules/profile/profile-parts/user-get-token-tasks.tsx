@@ -63,9 +63,11 @@ function UserPageGetTokenTasks({
   } | null>(null);
   function generateLink(source: string, prefix_link: string) {
     const currentCountry = localStorage.getItem("country_code");
-    const refLink = `${document.location.origin}/authentication?ref=${
+    const refLink = `${
+      document.location.origin
+    }/authentication?country=${currentCountry}&ref=${
       userData?.user.ref_code
-    }&source=${source.toLowerCase()}&country=${currentCountry}`;
+    }&source=${source.toLowerCase()}`;
     setGeneratedLink({
       link: refLink,
       title: source,
@@ -111,7 +113,14 @@ function UserPageGetTokenTasks({
                   {translations?.goods}
                 </a>
               </LinkQuery>{" "}
-              {translations?.or_uslugu}
+              {translations?.or_uslugu}{" "}
+              <a
+                target="_blank"
+                style={{ textTransform: "lowercase" }}
+                href="https://t.me/Ismail0v12"
+              >
+                {translations?.admin}
+              </a>
             </h4>
           </li>
           <li className={styles.gettoken__subscribe}>
