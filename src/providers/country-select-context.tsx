@@ -49,7 +49,7 @@ export function CountrySelectContextProvider({
         setCountryList(res.data);
       })
       .catch((err) => console.log(err));
-  }, [selectedCountry]);
+  }, [selectedCountry, locale]);
 
   useEffect(() => {
     const currLang = localStorage.getItem("language_code");

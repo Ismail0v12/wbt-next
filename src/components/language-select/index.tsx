@@ -17,6 +17,7 @@ interface LanguageListNestedProps {
 const LanguageSelect = () => {
   const { push, pathname, asPath } = useRouter();
   const { languageList } = useContext(CountrySelectContext);
+
   function changeLanguage(text: string) {
     const item = languageList?.others.find(
       (langs: LanguageListNestedProps) => langs.code === text

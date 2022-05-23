@@ -15,7 +15,7 @@ const AuthenticationPage = (props: any) => {
     <>
       <Head>
         <title>White Bridge Club</title>
-        <meta property="description" content={`${translations.about_descr}`} />
+        <meta property="description" content={`${translations.crypo_wbt}`} />
         <meta property="url" content="https://whitebridge.club" />
         <meta property="type" content="website" />
 
@@ -23,25 +23,19 @@ const AuthenticationPage = (props: any) => {
         <meta property="og:title" content={`White Bridge Club`} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={`White Bridge Club`} />
-        <meta
-          property="og:description"
-          content={`${translations.about_descr}`}
-        />
+        <meta property="og:description" content={`${translations.crypo_wbt}`} />
         <meta
           property="og:image"
           itemProp="image primaryImageOfPage"
           content="https://whitebridge.club/wbt.png"
         />
-        <meta name="description" content={`${translations.about_descr}`} />
+        <meta name="description" content={`${translations.crypo_wbt}`} />
 
         {/* <!-- Facebook Meta Tags --> */}
         <meta property="og:url" content="https://whitebridge.club" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`White Bridge Club`} />
-        <meta
-          property="og:description"
-          content={`${translations.about_descr}`}
-        />
+        <meta property="og:description" content={`${translations.crypo_wbt}`} />
         <meta property="og:image" content="https://whitebridge.club/wbt.png" />
 
         {/* <!-- Twitter Meta Tags --> */}
@@ -51,7 +45,7 @@ const AuthenticationPage = (props: any) => {
         <meta name="twitter:title" content={`White Bridge Club`} />
         <meta
           name="twitter:description"
-          content={`${translations.about_descr}`}
+          content={`${translations.crypo_wbt}`}
         />
         <meta name="twitter:image" content="https://whitebridge.club/wbt.png" />
       </Head>

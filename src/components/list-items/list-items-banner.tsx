@@ -38,9 +38,10 @@ const ListItemsBanner = ({ banners }: ListItemsBannerProps) => {
             nextEl: "#list__banner-next",
           }}
           pagination={{ clickable: true }}
+          className={styles["list__swiper"]}
           scrollbar={{ draggable: true }}
           style={{
-            height: "570px",
+            height: "770px",
           }}
           loop={true}
         >

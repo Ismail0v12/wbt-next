@@ -10,12 +10,17 @@ const NavMenuItem = ({
   childrenData,
   setShowMenu,
 }: MenuChildrenProp) => {
-  const { locale } = useRouter();
+  const { locale, pathname, asPath, query } = useRouter();
+  const activeClassName =
+    asPath === `/category/${link}?country=${query.country}`;
 
   return (
     <li className={styles["nav-menu__item"]}>
-      <div onClick={() => setShowMenu && setShowMenu(false)}>
-        <LinkQuery href={"/category/" + link} passHref locale={locale}>
+      <div
+        onClick={() => setShowMenu && setShowMenu(false)}
+        className={activeClassName ? styles.active : ""}
+      >
+        <LinkQuery href={`/category/${link}`} passHref locale={locale}>
           <a>{title}</a>
         </LinkQuery>
         {childrenData && childrenData?.length !== 0 && (
@@ -34,7 +39,13 @@ const NavMenuItem = ({
                   passHref
                   locale={locale}
                 >
-                  <a>{item.title}</a>
+                  <a
+                    className={
+                      pathname === `/category/${item.id}` ? "active" : ""
+                    }
+                  >
+                    {item.title}
+                  </a>
                 </LinkQuery>
               </div>
             </li>
