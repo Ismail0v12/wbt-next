@@ -113,7 +113,9 @@ function UserPageGetTokenTasks({
                   {translations?.goods}
                 </a>
               </LinkQuery>{" "}
-              {translations?.or_uslugu}{" "}
+              <span style={{ textTransform: "lowercase" }}>
+                {translations.or_uslugu}
+              </span>{" "}
               <a
                 target="_blank"
                 style={{ textTransform: "lowercase" }}
