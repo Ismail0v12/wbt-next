@@ -1,5 +1,23 @@
-.detail-page {
-  padding: 50px 0;
+.detail-page footer {
+  margin-top: 0;
+}
+
+.detail-page__iframe {
+  width: 100%;
+  height: 86vh;
+  overflow: auto;
+}
+
+.detail-page__iframe::-webkit-scrollbar {
+  width: 2px;
+}
+
+.detail-page__iframe::-webkit-scrollbar-thumb {
+  background-color: var(--yellow);
+}
+
+.detail-page__iframe::-webkit-scrollbar-track {
+  background-color: #fff;
 }
 
 .detail-page__wrapper {
@@ -7,6 +25,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 50px;
 }
+
 .detail-page__carousel {
   display: inherit;
   user-select: none;
