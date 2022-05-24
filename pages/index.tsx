@@ -3,15 +3,20 @@ import Head from "next/head";
 import { GetServerSideProps, NextPage } from "next";
 import { getData } from "../src/api/BaseApi";
 import Spinner from "../src/components/spinner";
+import { useRouter } from "next/router";
 
 const HomePage = dynamic(() => import("../src/modules/home"), {
   loading: () => <Spinner />,
 });
 
-const Home: NextPage<{ translations: any }> = ({ translations }) => {
+const Home: NextPage<{ translations: any; currLang: any }> = ({
+  translations,
+  currLang,
+}) => {
   return (
     <>
       <Head>
+        <html lang={currLang} />
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.about_descr}`} />
         <meta property="url" content="https://whitebridge.club" />
@@ -62,9 +67,12 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await getData("/translations/?", locale, "");
+  const currLang = locale?.length !== 0 ? locale : "en";
+
   return {
     props: {
       translations: translations.data,
+      currLang,
     },
   };
 };

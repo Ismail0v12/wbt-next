@@ -10,7 +10,6 @@ import {
   CountrySelectContextProvider,
 } from "../src/providers";
 import { MetaMaskProvider } from "metamask-react";
-import { Footer } from "../src/components/footer";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
