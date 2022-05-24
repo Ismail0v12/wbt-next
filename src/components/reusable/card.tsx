@@ -20,10 +20,10 @@ interface CardProps {
 }
 
 const Card = ({ cardData }: CardProps) => {
-  const [liked, setLiked] = useState<{ id: number } | null>(null);
+  // const [liked, setLiked] = useState<{ id: number } | null>(null);
   const [views, setViews] = useState<number | undefined>(cardData?.views);
   const [shareOpen, setShareOpen] = useState<boolean>(false);
-  const { isAuthorized } = useContext(AuthenticationContext);
+  // const { isAuthorized } = useContext(AuthenticationContext);
   const { shareLinks } = useContext(ShareLinksContext);
   const { translations } = useContext(TranslationContext);
 
@@ -106,21 +106,14 @@ const Card = ({ cardData }: CardProps) => {
               </span>
             </div>
           </div>
-          <a
-            onClick={() => {
-              postView(cardData?.id);
-              setViews((view) => view && view++);
-            }}
-            href={cardData?.link}
-            target="_blank"
-            rel="noreferrer"
-            className="button"
-          >
-            <span>
-              {translations?.see_more}
-              <ChevronRightIcon />
-            </span>
-          </a>
+          <LinkQuery passHref href={`/product/${cardData?.id}/`}>
+            <a className="button">
+              <span>
+                {translations?.see_more}
+                <ChevronRightIcon />
+              </span>
+            </a>
+          </LinkQuery>
         </div>
       </div>
 
