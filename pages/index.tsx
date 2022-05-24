@@ -3,7 +3,6 @@ import Head from "next/head";
 import { GetServerSideProps, NextPage } from "next";
 import { getData } from "../src/api/BaseApi";
 import Spinner from "../src/components/spinner";
-import { useRouter } from "next/router";
 
 const HomePage = dynamic(() => import("../src/modules/home"), {
   loading: () => <Spinner />,

@@ -12,7 +12,7 @@ const ChangePasswordPage = dynamic(
 );
 
 function ChangePassword(props: any) {
-  const { translations } = props;
+  const { translations, currLang } = props;
   const { isAuthorized } = useContext(AuthenticationContext);
   const router = useRouter();
   useEffect(() => {
@@ -23,6 +23,7 @@ function ChangePassword(props: any) {
   return (
     <>
       <Head>
+        <html lang={currLang} />
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.about_descr}`} />
         <meta property="url" content="https://whitebridge.club" />
@@ -75,8 +76,11 @@ export default ChangePassword;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await getData("/translations/?", locale, "");
+  const currLang = locale?.length !== 0 ? locale : "en";
+
   return {
     props: {
+      currLang,
       translations: translations.data,
     },
   };

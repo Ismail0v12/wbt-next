@@ -9,10 +9,11 @@ const ListPage = dynamic(() => import("../../../src/modules/list"), {
 });
 
 export default function List(props: any) {
-  const { data, translations } = props;
+  const { data, translations, currLang } = props;
   return (
     <>
       <Head>
+        <html lang={currLang} />
         <title>White Bridge Club | {data?.category.title}</title>
         <meta property="description" content={`${translations?.about_descr}`} />
         <meta property="url" content="https://whitebridge.club" />
@@ -77,10 +78,13 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     ""
   );
   const translations = await getData("/translations/?", locale, "");
+  const currLang = locale?.length !== 0 ? locale : "en";
+
   return {
     props: {
       data: data.data,
       translations: translations.data,
+      currLang,
     },
   };
 };

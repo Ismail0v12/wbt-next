@@ -7,10 +7,11 @@ import { AuthLayout } from "../../src/layouts/auth-layout";
 const Login = dynamic(() => import("../../src/modules/login"));
 
 const LoginPage = (props: any) => {
-  const { translations } = props;
+  const { translations, currLang } = props;
   return (
     <>
       <Head>
+        <html lang={currLang} />
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.about_descr}`} />
         <meta property="url" content="https://whitebridge.club" />
@@ -63,8 +64,11 @@ export default LoginPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await getData("/translations/?", locale, "");
+  const currLang = locale?.length !== 0 ? locale : "en";
+
   return {
     props: {
+      currLang,
       translations: translations.data,
     },
   };

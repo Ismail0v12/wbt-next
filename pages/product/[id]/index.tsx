@@ -8,7 +8,7 @@ import Head from "next/head";
 const DetailPage = dynamic(() => import("../../../src/modules/detail"));
 
 function Detail(props: any) {
-  const { detailData, translations, notFound } = props;
+  const { detailData, translations, notFound, currLang } = props;
   const router = useRouter();
 
   if (notFound) {
@@ -21,6 +21,7 @@ function Detail(props: any) {
   return (
     <>
       <Head>
+        <html lang={currLang} />
         <title>White Bridge Club | {detailData?.title}</title>
         <meta property="description" content={`${detailData?.description}`} />
         <meta
@@ -105,6 +106,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const data = await getData(`/entities/${query.id}/?`, locale, query.country);
   const translations = await getData("/translations/?", locale);
+  const currLang = locale?.length !== 0 ? locale : "en";
 
   if (!data) {
     return {
@@ -114,6 +116,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
+      currLang,
       detailData: data.data,
       translations: translations.data,
     },

@@ -10,10 +10,11 @@ const Auth = dynamic(() => import("../../src/modules/auth"), {
 });
 
 const AuthenticationPage = (props: any) => {
-  const { translations } = props;
+  const { translations, currLang } = props;
   return (
     <>
       <Head>
+        <html lang={currLang} />
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.crypo_wbt}`} />
         <meta property="url" content="https://whitebridge.club" />
@@ -60,9 +61,12 @@ export default AuthenticationPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const translations = await getData("/translations/?", locale, "");
+  const currLang = locale?.length !== 0 ? locale : "en";
+
   return {
     props: {
       translations: translations.data,
+      currLang,
     },
   };
 };
