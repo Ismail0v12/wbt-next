@@ -2,18 +2,13 @@ import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
 import { getData } from "../../../src/api/BaseApi";
 import SpinnerIcon from "../../../src/components/assets/icons/SpinnerIcon";
-import { useRouter } from "next/router";
 import Head from "next/head";
 
 const DetailPage = dynamic(() => import("../../../src/modules/detail"));
 
 function Detail(props: any) {
-  const { detailData, translations, notFound, currLang } = props;
-  const router = useRouter();
+  const { detailData } = props;
 
-  if (notFound) {
-    router.push(`/404?country=${router.query.country}`);
-  }
   if (!detailData) {
     return <SpinnerIcon />;
   }
@@ -21,8 +16,11 @@ function Detail(props: any) {
   return (
     <>
       <Head>
-        <html lang={currLang} />
         <title>White Bridge Club | {detailData?.title}</title>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        ></meta>
         <meta property="description" content={`${detailData?.description}`} />
         <meta
           property="url"
@@ -93,7 +91,7 @@ function Detail(props: any) {
           content={`https://whitebridge.site/${detailData?.photos[0]}`}
         />
       </Head>
-      <DetailPage data={detailData} translations={translations} />
+      <DetailPage data={detailData} />
     </>
   );
 }
@@ -106,17 +104,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const data = await getData(`/entities/${query.id}/?`, locale, query.country);
   const translations = await getData("/translations/?", locale);
-  const currLang = locale?.length !== 0 ? locale : "en";
-
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
 
   return {
     props: {
-      currLang,
       detailData: data.data,
       translations: translations.data,
     },

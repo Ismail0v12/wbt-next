@@ -15,7 +15,6 @@ const Home: NextPage<{ translations: any; currLang: any }> = ({
   return (
     <>
       <Head>
-        <html lang={currLang} />
         <title>White Bridge Club</title>
         <meta property="description" content={`${translations.about_descr}`} />
         <meta property="url" content="https://whitebridge.club" />
@@ -57,6 +56,7 @@ const Home: NextPage<{ translations: any; currLang: any }> = ({
         />
         <meta name="twitter:image" content="https://whitebridge.club/wbt.png" />
       </Head>
+
       <HomePage translations={translations} />
     </>
   );
