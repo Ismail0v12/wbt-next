@@ -8,7 +8,6 @@ import styles from "./style.module.css";
 
 interface DetailPageProps {
   readonly data: ProductInterface;
-  readonly translations: any;
 }
 
 function DetailPage({ data }: DetailPageProps) {
