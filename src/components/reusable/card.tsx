@@ -14,6 +14,7 @@ import EyeOpenIcon from "../assets/icons/EyeOpenIcon";
 import ChevronRightIcon from "../assets/icons/ChevronRightIcon";
 import { ProductInterface } from "../../Interfaces/ProductInterface";
 import { ShareLinksInterface } from "../../Interfaces/ShareLinksInterface";
+import CountrySelectContext from "../../providers/country-select-context";
 
 interface CardProps {
   readonly cardData: ProductInterface | undefined;
@@ -26,7 +27,7 @@ const Card = ({ cardData }: CardProps) => {
   // const { isAuthorized } = useContext(AuthenticationContext);
   const { shareLinks } = useContext(ShareLinksContext);
   const { translations } = useContext(TranslationContext);
-
+  const { selectedCountry } = useContext(CountrySelectContext);
   // useEffect(() => {
   //   if (isAuthorized && cardData?.like != null) {
   //     setLiked({ id: cardData.like.id });
@@ -132,7 +133,8 @@ const Card = ({ cardData }: CardProps) => {
                     href={
                       prefix_link +
                       "https://whitebridge.club/product/" +
-                      cardData?.id
+                      cardData?.id +
+                      `?country=${selectedCountry}`
                     }
                     rel="noreferrer"
                     key={id}

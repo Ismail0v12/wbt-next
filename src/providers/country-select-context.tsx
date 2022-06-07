@@ -13,10 +13,12 @@ const CountrySelectContext = createContext<{
   selectCountryHandle: (text: string | number) => void;
   countryList: CountryListProps | undefined;
   languageList: LanguageListProps | undefined;
+  selectedCountry: string | false;
 }>({
   selectCountryHandle: (text: string | number) => {},
   countryList: undefined,
   languageList: undefined,
+  selectedCountry: "",
 });
 
 interface CountrySelectContextProviderProps {
@@ -79,7 +81,12 @@ export function CountrySelectContextProvider({
     push(`${pathname}?country=${text}`);
   }
 
-  const context = { selectCountryHandle, countryList, languageList };
+  const context = {
+    selectCountryHandle,
+    countryList,
+    languageList,
+    selectedCountry,
+  };
 
   return (
     <CountrySelectContext.Provider value={context}>
