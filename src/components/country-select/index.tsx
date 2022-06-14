@@ -1,5 +1,8 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
+<<<<<<< HEAD
 import { useRouter } from "next/router";
+=======
+>>>>>>> acc1a17 (Fixed in search country)
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
 import { Image } from "../image";
 import styles from "./style.module.css";
@@ -39,7 +42,15 @@ const CountrySelect = () => {
   }, [countryList?.others, term]);
 
   return (
+<<<<<<< HEAD
     <div className={styles.country}>
+=======
+    <div
+      className={styles.country}
+      onMouseEnter={() => setOpenSelectCountry(true)}
+      data-open={openSelectCountry}
+    >
+>>>>>>> acc1a17 (Fixed in search country)
       <div className={styles.country__selected}>
         <span>{countryList?.current.title}</span>
         <span>
@@ -56,10 +67,14 @@ const CountrySelect = () => {
           )}
         </span>
       </div>
+<<<<<<< HEAD
       <div
         className={styles.country__list}
         onMouseEnter={() => setOpenSelectCountry(true)}
       >
+=======
+      <div className={styles.country__list}>
+>>>>>>> acc1a17 (Fixed in search country)
         <input
           type="search"
           placeholder="Search country"
@@ -71,7 +86,14 @@ const CountrySelect = () => {
             data-active={countryList?.current.code === code}
             ref={countryList?.current.code === code ? countryRef : null}
             key={code}
+<<<<<<< HEAD
             onClick={() => selectCountryHandle(code)}
+=======
+            onClick={() => {
+              selectCountryHandle(code);
+              setOpenSelectCountry(false);
+            }}
+>>>>>>> acc1a17 (Fixed in search country)
             className={countryList?.current.code === code ? styles.active : ""}
           >
             <span>{title}</span>

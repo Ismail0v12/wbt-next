@@ -3,7 +3,11 @@
   padding: 39px 0;
 }
 
+<<<<<<< HEAD
 .country:hover .country__list {
+=======
+.country[data-open="true"] .country__list {
+>>>>>>> acc1a17 (Fixed in search country)
   height: auto;
   opacity: 1;
   visibility: visible;
@@ -104,6 +108,13 @@
 }
 
 .country__list input {
+<<<<<<< HEAD
+=======
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+>>>>>>> acc1a17 (Fixed in search country)
   position: sticky;
   top: 0;
   left: 0;
