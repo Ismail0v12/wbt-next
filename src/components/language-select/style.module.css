@@ -33,7 +33,7 @@
   z-index: 2;
 }
 
-.language:hover .language__list {
+.language[data-open="true"] .language__list {
   height: auto;
   opacity: 1;
   visibility: visible;

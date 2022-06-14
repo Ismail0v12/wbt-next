@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
 import styles from "./style.module.css";
@@ -17,7 +17,7 @@ interface LanguageListNestedProps {
 const LanguageSelect = () => {
   const { push, pathname, asPath } = useRouter();
   const { languageList } = useContext(CountrySelectContext);
-
+  const [open, setOpen] = useState(false);
   function changeLanguage(text: string) {
     const item = languageList?.others.find(
       (langs: LanguageListNestedProps) => langs.code === text
@@ -30,7 +30,12 @@ const LanguageSelect = () => {
   }
 
   return (
-    <div className={styles.language}>
+    <div
+      className={styles.language}
+      data-open={open}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <div className={styles.language__selected}>
         <span>{languageList?.current?.title}</span>
         <ChevronDownIcon />
@@ -41,7 +46,10 @@ const LanguageSelect = () => {
             <span
               data-active={languageList?.current.code === code}
               key={code}
-              onClick={() => changeLanguage(`${code}`)}
+              onClick={() => {
+                changeLanguage(`${code}`);
+                setOpen(false);
+              }}
             >
               {title}
             </span>
