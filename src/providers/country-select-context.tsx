@@ -32,13 +32,29 @@ export function CountrySelectContextProvider({
     undefined
   );
   const [languageList, setLanguageList] = useState<LanguageListProps | any>([]);
-  const { push, asPath, pathname, locale } = useRouter();
-  const currentCountry =
+  const { push, asPath, pathname, locale, query } = useRouter();
+  const currLang =
+    typeof window !== "undefined" && localStorage.getItem("language_code");
+  const currCountry =
     typeof window !== "undefined" && localStorage.getItem("country_code");
-  const selectedCountry =
-    currentCountry !== "undefined" && currentCountry !== null
-      ? currentCountry
-      : "";
+  const selectedCountry = currCountry !== null ? currCountry : "";
+  const selectedLang = currLang !== null ? currLang : locale;
+
+  useEffect(() => {
+    localStorage.setItem("language_code", `${selectedLang}`);
+    if (query.country !== undefined) {
+      localStorage.setItem("country_code", `${query.country}`);
+    } else {
+      localStorage.setItem("country_code", `${selectedCountry}`);
+    }
+  }, []);
+
+  useEffect(() => {
+    push(`${pathname}?country=${selectedCountry}`, asPath, {
+      shallow: true,
+      locale: selectedLang,
+    });
+  }, [countryList, selectedCountry]);
 
   useEffect(() => {
     getData("/countries/languages/?", locale, selectedCountry)
@@ -51,30 +67,7 @@ export function CountrySelectContextProvider({
         setCountryList(res.data);
       })
       .catch((err) => console.log(err));
-  }, [selectedCountry, locale]);
-
-  useEffect(() => {
-    const currLang = localStorage.getItem("language_code");
-
-    const selectedLang =
-      currLang !== "undefined" && currLang !== null
-        ? currLang
-        : languageList?.current?.code;
-
-    if (selectedCountry) {
-      push(`${pathname}?country=${currentCountry}`, asPath, {
-        shallow: true,
-        locale: selectedLang,
-      });
-    } else {
-      localStorage.setItem("country_code", `${countryList?.current.code}`);
-      localStorage.setItem("language_code", `${selectedLang}`);
-      push(`${pathname}?country=${countryList?.current.code}`, asPath, {
-        shallow: true,
-        locale: selectedLang,
-      });
-    }
-  }, [countryList, selectedCountry]);
+  }, [locale, selectedCountry]);
 
   function selectCountryHandle(text: string | number) {
     localStorage.setItem("country_code", `${text}`);

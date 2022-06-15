@@ -115,7 +115,7 @@
   width: 100%;
   outline: none;
   border: none;
-  border-bottom: 1px solid rgba(219, 146, 0, 0.5);
+  border-bottom: 2px solid rgba(219, 146, 0, 1);
   background-color: var(--black);
   color: var(--white);
   padding: 5px;
@@ -125,6 +125,10 @@
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+
+.country__list input::placeholder {
+  color: white;
 }
 
 .country__list input:focus {

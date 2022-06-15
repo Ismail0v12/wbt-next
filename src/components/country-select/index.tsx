@@ -1,8 +1,9 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import ChevronDownIcon from "../assets/icons/ChevronDownIcon";
 import { Image } from "../image";
-import styles from "./style.module.css";
 import CountrySelectContext from "../../providers/country-select-context";
+import styles from "./style.module.css";
+import TranslationContext from "../../providers/translation-context";
 
 export interface CountryListOtherProps {
   readonly flag: string;
@@ -12,6 +13,7 @@ export interface CountryListOtherProps {
 
 const CountrySelect = () => {
   const { selectCountryHandle, countryList } = useContext(CountrySelectContext);
+  const { translations } = useContext(TranslationContext);
   const [openSelectCountry, setOpenSelectCountry] = useState<boolean>(false);
   const [term, setTerm] = useState("");
   const countryRef = useRef<HTMLDivElement | null>(null);
@@ -38,13 +40,11 @@ const CountrySelect = () => {
   }, [countryList?.others, term]);
 
   return (
-    <div
-      className={styles.country}
-      onMouseEnter={() => setOpenSelectCountry(true)}
-      onMouseLeave={() => setOpenSelectCountry(false)}
-      data-open={openSelectCountry}
-    >
-      <div className={styles.country__selected}>
+    <div className={styles.country} data-open={openSelectCountry}>
+      <div
+        className={styles.country__selected}
+        onClick={() => setOpenSelectCountry(true)}
+      >
         <span>{countryList?.current.title}</span>
         <span>
           <ChevronDownIcon />
@@ -60,10 +60,13 @@ const CountrySelect = () => {
           )}
         </span>
       </div>
-      <div className={styles.country__list}>
+      <div
+        className={styles.country__list}
+        onMouseLeave={() => setOpenSelectCountry(false)}
+      >
         <input
           type="search"
-          placeholder="Search country"
+          placeholder={translations?.search_the_country}
           value={term}
           onChange={(e) => setTerm(e.target.value)}
         />
