@@ -65,7 +65,7 @@ function UserPageGetTokenTasks({
     const currentCountry = localStorage.getItem("country_code");
     const refLink = `${
       document.location.origin
-    }/authentication?country=${currentCountry}&ref=${
+    }/${locale}/authentication?country=${currentCountry}&ref=${
       userData?.user.ref_code
     }&source=${source.toLowerCase()}`;
     setGeneratedLink({
