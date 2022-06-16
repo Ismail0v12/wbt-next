@@ -64,12 +64,14 @@ const CountrySelect = () => {
         className={styles.country__list}
         onMouseLeave={() => setOpenSelectCountry(false)}
       >
-        <input
-          type="search"
-          placeholder={translations?.search_the_country}
-          value={term}
-          onChange={(e) => setTerm(e.target.value)}
-        />
+        <aside>
+          <input
+            type="search"
+            placeholder={translations?.search_the_country}
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+          />
+        </aside>
         {searchCountry?.map(({ title, flag, code }: CountryListOtherProps) => (
           <div
             data-active={countryList?.current.code === code}

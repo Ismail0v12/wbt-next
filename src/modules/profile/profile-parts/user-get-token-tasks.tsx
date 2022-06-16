@@ -149,7 +149,7 @@ function UserPageGetTokenTasks({
                     ? generatedLink?.title + " " + translations?.link
                     : translations?.please_generate_link_above
                 }`}
-                copyText={true}
+                copyText={generatedLink ? true : false}
                 disabled={true}
                 value={`${
                   generatedLink

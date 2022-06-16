@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
+import TranslationContext from "../../../providers/translation-context";
+import { UserPageGetTokenTasks } from "./user-get-token-tasks";
 import cryptoImage from "../../../components/assets/images/crypto.jpg";
+import metamask from "../../../components/assets/images/metamask-3.png";
+import bunnyMono from "../../../components/assets/images/bunny-mono.png";
 import nftImage from "../../../components/assets/images/nft.jpg";
 import affiliateImage from "../../../components/assets/images/affiliate.jpg";
 import insuranceImage from "../../../components/assets/images/insurance.jpg";
 import metaverseImage from "../../../components/assets/images/metaverse.jpg";
 import icoImage from "../../../components/assets/images/ico.jpg";
 import logo from "../../../components/assets/images/WBT3.png";
-import TranslationContext from "../../../providers/translation-context";
-import { UserPageGetTokenTasks } from "./user-get-token-tasks";
 import styles from "../style.module.css";
 
 interface ModalHandler {
@@ -55,7 +57,13 @@ const UserPageInstructions = ({
           <h3>White Bridge Token </h3>
           <article>{translations?.crypo_wbt}</article>
         </div>
+
         <UserPageGetTokenTasks connectTo={connectTo} setConnect={setConnect} />
+        <div className={styles.metamask__logo}>
+          <img src={bunnyMono.src} alt="White Bridge Club Pancake Swap" />
+          <img src={logo.src} alt="White Bridge Club" />
+          <img src={metamask.src} alt="White Bridge Club Metamask" />
+        </div>
         <div className={styles.crypto__content}>
           <img
             src={affiliateImage.src}

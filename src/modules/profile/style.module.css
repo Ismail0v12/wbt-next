@@ -183,6 +183,19 @@
   grid-template-columns: 0.2fr 0.25fr 0.5fr 0.5fr;
   gap: 30px;
 }
+.metamask__logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--light-black);
+  margin-bottom: 72px;
+  padding: 20px 0;
+}
+
+.metamask__logo img {
+  width: 250px;
+  height: 250px;
+}
 
 .user__links h4 {
   font-weight: 500;
@@ -541,6 +554,10 @@
 }
 
 @media (max-width: 1200px) {
+  .metamask__logo img {
+    width: 200px;
+    height: 200px;
+  }
   .user__links {
     grid-template-columns: 0.37fr 0.37fr 0.6fr;
     column-gap: 20px;
@@ -596,6 +613,10 @@
 }
 
 @media (max-width: 992px) {
+  .metamask__logo img {
+    width: 150px;
+    height: 150px;
+  }
   .user__links {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -662,6 +683,10 @@
 }
 
 @media (max-width: 768px) {
+  .metamask__logo img {
+    width: 100px;
+    height: 100px;
+  }
   .user__links {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -752,6 +777,14 @@
 }
 
 @media (max-width: 576px) {
+  .metamask__logo {
+    padding: 10px 0;
+    margin-bottom: 25px;
+  }
+  .metamask__logo img {
+    width: 75px;
+    height: 75px;
+  }
   .user__links {
     gap: 10px;
   }
