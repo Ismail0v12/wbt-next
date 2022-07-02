@@ -11,6 +11,7 @@ export interface ProductInterface {
   readonly description: string;
   readonly photos: string[];
   readonly link: string;
+  readonly sale: number | null;
   readonly views?: number;
   readonly title_2?: string;
 }

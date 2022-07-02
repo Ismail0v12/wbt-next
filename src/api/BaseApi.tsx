@@ -13,8 +13,10 @@ const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   const tokenCookie =
     typeof window !== "undefined" && localStorage.getItem("access");
   const token = tokenSession || tokenCookie;
-  // @ts-ignore
-  config.headers["Authorization"] = `Bearer ${token}`;
+  if (token !== null) {
+    // @ts-ignore
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
 
   return config;
 };
