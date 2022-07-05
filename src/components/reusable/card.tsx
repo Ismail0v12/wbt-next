@@ -77,7 +77,9 @@ const Card = ({ cardData }: CardProps) => {
             </a>
           </LinkQuery>
           {cardData?.sale !== null && (
-            <span className="card__sale">-{cardData?.sale}%</span>
+            <div className="card__sale">
+              <span>SALE -{cardData?.sale}%</span>
+            </div>
           )}
         </div>
         <div className="card__body">
