@@ -17,15 +17,18 @@ const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
     // @ts-ignore
     config.headers["Authorization"] = `Bearer ${token}`;
   }
+  console.clear();
 
   return config;
 };
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
+  console.clear();
   return Promise.reject(error);
 };
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
+  console.clear();
   return response;
 };
 
@@ -51,7 +54,8 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
               localStorage.setItem("access", access);
             }
           }
-        });
+        })
+        .catch(() => console.clear());
     }
   }
   return Promise.reject(error);

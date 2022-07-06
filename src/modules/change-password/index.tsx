@@ -25,7 +25,13 @@ const ValidationSchema = Yup.object({
 const ChangePasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userId, setUserId] = useState<number>();
-  const { logOut } = useContext(AuthenticationContext);
+  const { logOut, isAuthorized } = useContext(AuthenticationContext);
+
+  useEffect(() => {
+    if (!isAuthorized) {
+      logOut();
+    }
+  }, [logOut, isAuthorized]);
 
   useEffect(() => {
     const token =
@@ -69,7 +75,6 @@ const ChangePasswordPage = () => {
                   theme: "dark",
                   type: "success",
                 });
-                logOut();
               }
             })
             .catch((err) => {

@@ -162,6 +162,20 @@ input:-webkit-autofill:focus {
   }
 }
 
+.pincode-input-container {
+  margin-top: 12px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.pincode-input-container input {
+  border: 1px solid white !important;
+  color: white !important;
+  border-radius: 5px;
+}
+
 @media (min-width: 1440px) {
   .container {
     max-width: 1390px;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { LinkQuery } from "../../components/link-query";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -9,7 +9,6 @@ import { Input } from "../../components/reusable/input";
 import { Button } from "../../components/reusable/button";
 import { postData } from "../../api/BaseApi";
 import TranslationContext from "../../providers/translation-context";
-import AuthenticationContext from "../../providers/authentication-context";
 import styles from "./style.module.css";
 
 const DynamicPinInput = dynamic(() => import("./reset-password-input"), {
@@ -29,14 +28,7 @@ const ResetPasswordPage = () => {
   const [isPasswordWritten, setIsPasswordWritten] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
   const { translations } = useContext(TranslationContext);
-  const { isAuthorized, logOut } = useContext(AuthenticationContext);
-
-  useEffect(() => {
-    if (!isAuthorized) {
-      logOut();
-    }
-  }, [logOut, isAuthorized]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const ResetPasswordValidation = Yup.object({
     password: Yup.string()
       .min(5, `${translations?.too_short}`)
@@ -49,15 +41,18 @@ const ResetPasswordPage = () => {
 
   function verfiyEmail(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
     postData("/profile/reset-password1/", { email: resetForm.email })
       .then((res) => {
         if (res) {
           setIsEmailWritten(false);
           setIsCodeWritten(true);
+          setIsLoading(false);
         }
       })
       .catch((err) => {
         if (err) {
+          setIsLoading(false);
           setEmailError(`${translations?.email_is_incorrect}`);
         }
       });
@@ -65,6 +60,7 @@ const ResetPasswordPage = () => {
 
   function verfiyCode(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
     postData("/profile/reset-password2/", {
       email: resetForm.email,
       code: resetForm.code,
@@ -73,11 +69,12 @@ const ResetPasswordPage = () => {
         if (res) {
           setIsCodeWritten(false);
           setIsPasswordWritten(true);
+          setIsLoading(false);
         }
       })
-      .catch((err) => {
-        if (err.response.status === 400) {
-        }
+      .catch(() => {
+        setIsLoading(false);
+        alert("Code is incorrect");
       });
   }
 
@@ -109,6 +106,7 @@ const ResetPasswordPage = () => {
                 text={translations?.next}
                 type="submit"
                 disabled={resetForm.email.length === 0}
+                isLoading={isLoading}
               />
             </form>
           </>
@@ -117,7 +115,7 @@ const ResetPasswordPage = () => {
       <>
         {isCodeWritten && (
           <>
-            <h4 className="Do not worry">{translations?.code}</h4>
+            <h4 className="auth__title">{translations?.code}</h4>
             <h2 className="auth__subtitle">{translations?.otp_code}</h2>
             <form onSubmit={verfiyCode}>
               <span className={styles["reset-password__code"]}>
@@ -142,6 +140,7 @@ const ResetPasswordPage = () => {
                 text={translations?.next}
                 type="submit"
                 disabled={resetForm.code.length !== 5}
+                isLoading={isLoading}
               />
             </form>
           </>
@@ -161,6 +160,8 @@ const ResetPasswordPage = () => {
               }}
               validationSchema={ResetPasswordValidation}
               onSubmit={(values) => {
+                setIsLoading(true);
+
                 postData("/profile/reset-password3/", {
                   password: values.password,
                   email: values.email,
@@ -168,6 +169,7 @@ const ResetPasswordPage = () => {
                 })
                   .then((res) => {
                     if (res) {
+                      setIsLoading(false);
                       toast(`${translations?.successfully_changed}`, {
                         position: "top-center",
                         autoClose: 2000,
@@ -179,7 +181,6 @@ const ResetPasswordPage = () => {
                         theme: "dark",
                         type: "success",
                       });
-                      logOut();
                     }
                   })
                   .catch((err) => {
@@ -195,11 +196,12 @@ const ResetPasswordPage = () => {
                         theme: "dark",
                         type: "error",
                       });
+                      setIsLoading(false);
                     }
                   });
               }}
             >
-              {({ values, handleChange, errors }) => (
+              {({ values, handleChange }) => (
                 <Form>
                   <Input
                     name="password"
@@ -223,6 +225,7 @@ const ResetPasswordPage = () => {
                     text={translations?.next}
                     type="submit"
                     style={{ marginTop: "28px" }}
+                    isLoading={isLoading}
                   />
                 </Form>
               )}

@@ -20,7 +20,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
 
   return (
     <>
-      <section className="authlayout}">
+      <section className="authlayout">
         <AuthHeader />
         <div className="container">
           <div className="auth__grid">

@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ListItems } from "../../components/list-items";
-import LoadingIcon from "../../components/assets/icons/LoadingIcon";
+import { LoadingIcon } from "../../components/assets/icons/LoadingIcon";
 import { getData } from "../../api/BaseApi";
 import { DataInterface } from "../../Interfaces/DataInterface";
 import { BannerInterface } from "../../Interfaces/BannerInterface";

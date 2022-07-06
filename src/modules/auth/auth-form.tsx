@@ -6,18 +6,22 @@ import * as Yup from "yup";
 import { Input } from "../../components/reusable/input";
 import { Button } from "../../components/reusable/button";
 import { postData } from "../../api/BaseApi";
-import AuthenticationContext from "../../providers/authentication-context";
 import TranslationContext from "../../providers/translation-context";
 import styles from "./style.module.css";
 
-function AuthPageForm() {
+interface AuthPageFormProps {
+  readonly setIsSuccess: (isSuccess: boolean) => void;
+  readonly setInbox: (inbox: string) => void;
+}
+
+function AuthPageForm({ setIsSuccess, setInbox }: AuthPageFormProps) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [cookie, setCookie, removeCookie] = useCookies(["referal"]);
+  const [isUploading, setIsUploading] = useState(false);
   const [agree, setAgree] = useState(false);
   const navigate = useRouter();
   const parsedRef = navigate.query.ref;
   const parsedSource = navigate.query.source;
-  const { logIn } = useContext(AuthenticationContext);
   const { translations } = useContext(TranslationContext);
 
   const AuthPageFormSchema = Yup.object().shape({
@@ -66,27 +70,22 @@ function AuthPageForm() {
               source: cookie.referal ? cookie.referal.source : 0,
             },
           };
-
+          setInbox(values.email);
+          setIsUploading(true);
           postData("/profile/", data)
             .then((res) => {
               if (res) {
                 removeCookie("referal", { path: "/authentication" });
-                postData("/token/", values).then(async (res) => {
-                  if (res) {
-                    const resLogin = {
-                      access: res.data.access,
-                      refresh: res.data.refresh,
-                      remember: true,
-                    };
-                    await logIn(resLogin);
-                    navigate.push(`/profile`, navigate.asPath);
-                  }
-                });
+                setIsSuccess(true);
+
+                setIsUploading(false);
               }
             })
             .catch(() => {
+              setIsUploading(false);
               setFieldError("email", translations.user_email_is_exist);
               setFieldValue("password", "");
+              console.clear();
             });
         }}
       >
@@ -97,7 +96,6 @@ function AuthPageForm() {
               label={translations?.full_name}
               required={true}
               type="text"
-              autoComplete="username"
               value={values.full_name}
               onChange={handleChange}
               errorName={errors.full_name}
@@ -144,6 +142,7 @@ function AuthPageForm() {
               text={translations?.sign_up}
               type="submit"
               disabled={!agree}
+              isLoading={isUploading}
             />
           </Form>
         )}

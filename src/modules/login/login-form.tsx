@@ -16,6 +16,7 @@ function LoginPageForm() {
   const { logIn } = useContext(AuthenticationContext);
   const navigate = useRouter();
   const { translations } = useContext(TranslationContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -36,6 +37,7 @@ function LoginPageForm() {
         validateOnBlur={false}
         validateOnChange={false}
         onSubmit={(values, { setFieldError, setFieldValue }) => {
+          setIsLoading(true);
           postData("/token/", values)
             .then(async (res) => {
               if (res) {
@@ -45,6 +47,7 @@ function LoginPageForm() {
                   remember,
                 };
                 await logIn(resLogin);
+                setIsLoading(false);
                 navigate.push("/profile");
               }
             })
@@ -55,6 +58,7 @@ function LoginPageForm() {
                   `${translations?.password_or_email_incorrect}`
                 );
                 setFieldValue("password", "");
+                setIsLoading(false);
               }
             });
         }}
@@ -98,7 +102,11 @@ function LoginPageForm() {
                 <a>{translations?.forgot_password}</a>
               </LinkQuery>
             </div>
-            <Button text={translations?.log_in} type="submit" />
+            <Button
+              text={translations?.log_in}
+              type="submit"
+              isLoading={isLoading}
+            />
           </Form>
         )}
       </Formik>
