@@ -1,3 +1,10 @@
+.task__import span {
+  display: block;
+  font-size: 16px;
+  line-height: 19px;
+  color: #fff;
+  margin-bottom: 12px;
+}
 .user__nav {
   height: 100px;
   background-color: var(--black);

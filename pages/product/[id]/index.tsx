@@ -1,14 +1,17 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import dynamic from "next/dynamic";
 import { getData } from "../../../src/api/BaseApi";
 import SpinnerIcon from "../../../src/components/assets/icons/SpinnerIcon";
-import Head from "next/head";
+import DetailPage from "../../../src/modules/detail";
 
-const DetailPage = dynamic(() => import("../../../src/modules/detail"));
+// const DetailPage = dynamic(() => import("../../../src/modules/detail"), {
+//   ssr: false,
+//   loading: () => <SpinnerIcon />,
+// });
 
 function Detail(props: any) {
   const { detailData } = props;
-
   if (!detailData) {
     return <SpinnerIcon />;
   }
@@ -20,17 +23,21 @@ function Detail(props: any) {
         <meta
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
-        ></meta>
+        />
         <meta property="description" content={`${detailData?.description}`} />
         <meta
+          name="keywords"
+          content={`${detailData?.title}, ${detailData?.description}, White Bridge Club`}
+        />
+        <meta
           property="url"
-          content={`https://wbt-next-ismail0v12.vercel.app/product/${detailData?.id}`}
+          content={`https://whitebridge.club/product/${detailData?.id}`}
         />
         <meta property="type" content="website" />
 
         <meta
           property="og:url"
-          content={`https://wbt-next-ismail0v12.vercel.app/product/${detailData?.id}`}
+          content={`https://whitebridge.club/product/${detailData?.id}`}
         />
         <meta
           property="og:title"
@@ -48,19 +55,19 @@ function Detail(props: any) {
         <meta
           property="og:image"
           itemProp="image primaryImageOfPage"
-          content={`https://whitebridge.site/${detailData?.photos[0]}`}
+          content={`https://whitebridge.site${detailData?.photos[0]}`}
         />
         <meta name="description" content={`${detailData?.description}`} />
 
         {/* <!-- Facebook Meta Tags --> */}
         <meta
           property="og:url"
-          content={`https://wbt-next-ismail0v12.vercel.app/product/${detailData?.id}`}
+          content={`https://whitebridge.club/product/${detailData?.id}`}
         />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content={`White Bridge Club | ${detailData?.title}`}
+          content={`${detailData?.title} | White Bridge Club`}
         />
         <meta
           property="og:description"
@@ -68,18 +75,15 @@ function Detail(props: any) {
         />
         <meta
           property="og:image"
-          content={`https://whitebridge.site/${detailData?.photos[0]}`}
+          content={`https://whitebridge.club${detailData?.photos[0]}`}
         />
 
         {/* <!-- Twitter Meta Tags --> */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          property="twitter:domain"
-          content={`wbt-next-ismail0v12.vercel.app`}
-        />
+        <meta property="twitter:domain" content={`https://whitebridge.club`} />
         <meta
           property="twitter:url"
-          content={`https://wbt-next-ismail0v12.vercel.app/product/${detailData?.id}`}
+          content={`https://whitebridge.club/product/${detailData?.id}`}
         />
         <meta name="twitter:title" content="White Bridge Club" />
         <meta
@@ -88,7 +92,7 @@ function Detail(props: any) {
         />
         <meta
           name="twitter:image"
-          content={`https://whitebridge.site/${detailData?.photos[0]}`}
+          content={`https://whitebridge.site${detailData?.photos[0]}`}
         />
       </Head>
       <DetailPage data={detailData} />
@@ -103,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
 }) => {
   const data = await getData(`/entities/${query.id}/?`, locale, query.country);
-  const translations = await getData("/translations/?", locale);
+  const translations = await getData("/translations/?", locale, query.country);
 
   return {
     props: {

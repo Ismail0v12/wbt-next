@@ -17,18 +17,18 @@ const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
     // @ts-ignore
     config.headers["Authorization"] = `Bearer ${token}`;
   }
-  console.clear();
+  // console.clear();
 
   return config;
 };
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  console.clear();
+  // console.clear();
   return Promise.reject(error);
 };
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
-  console.clear();
+  // console.clear();
   return response;
 };
 
@@ -37,8 +37,9 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
     // Access Token was expired
     if (error.response.status === 401) {
       const storedToken =
-        sessionStorage.getItem("refreshSession") ||
-        localStorage.getItem("refresh");
+        (typeof window !== "undefined" &&
+          sessionStorage.getItem("refreshSession")) ||
+        (typeof window !== "undefined" && localStorage.getItem("refresh"));
 
       await axios
         .post(BASE_API + "/token/refresh/", {
@@ -54,8 +55,8 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
               localStorage.setItem("access", access);
             }
           }
-        })
-        .catch(() => console.clear());
+        });
+      // .catch(() => console.clear());
     }
   }
   return Promise.reject(error);

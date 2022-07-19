@@ -117,7 +117,7 @@ function UserConnectWallet({ connectTo, setConnect }: UserConnectWalletProps) {
                   </a>
                 </>
               ) : (
-                <h5>Не хватает количество рефералов</h5>
+                <h5>{translations?.not_enough_referrals}</h5>
               )}
             </>
           </Modal>,

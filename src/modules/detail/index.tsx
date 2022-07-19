@@ -21,6 +21,7 @@ function DetailPage({ data }: DetailPageProps) {
       setLoading(false);
     }
   }, []);
+
   return (
     <div className={styles["detail-page"]}>
       <ParticlesAnime />
