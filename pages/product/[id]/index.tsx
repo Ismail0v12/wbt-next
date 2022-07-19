@@ -75,7 +75,7 @@ function Detail(props: any) {
         />
         <meta
           property="og:image"
-          content={`https://whitebridge.club${detailData?.photos[0]}`}
+          content={`https://whitebridge.site${detailData?.photos[0]}`}
         />
 
         {/* <!-- Twitter Meta Tags --> */}
