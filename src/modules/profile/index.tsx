@@ -5,7 +5,6 @@ import { UserPageInstructions } from "./profile-parts/user-instructions";
 import { ParticlesAnime } from "../../components/particles-anime";
 import { UserConnectWallet } from "./profile-parts/user-connect-wallet";
 import { UserInfoContextProvider } from "../../providers";
-
 import styles from "./style.module.css";
 
 const UserPage = () => {

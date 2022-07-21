@@ -10,6 +10,7 @@ const HomePage = dynamic(() => import("../src/modules/home"), {
 
 const Home: NextPage<{ translations: any; currLang: any }> = ({
   translations,
+  currLang,
 }) => {
   return (
     <>
@@ -18,10 +19,7 @@ const Home: NextPage<{ translations: any; currLang: any }> = ({
         <meta property="description" content={`${translations.about_descr}`} />
         <meta property="url" content="https://whitebridge.club" />
         <meta property="type" content="website" />
-        <meta
-          name="keywords"
-          content="white, White Bridge Club, Bridge Club, bridge club, whitebridgeclub, whitebridge"
-        />
+
         <meta property="og:url" content="https://whitebridge.club" />
         <meta property="og:title" content={`White Bridge Club `} />
         <meta property="og:type" content="website" />

@@ -33,17 +33,21 @@ export function CountrySelectContextProvider({
   );
   const [languageList, setLanguageList] = useState<LanguageListProps | any>([]);
   const { push, asPath, pathname, locale, query } = useRouter();
-
   const currLang =
     typeof window !== "undefined" && localStorage.getItem("language_code");
-  const countryCode = query.country ? query.country : countryList?.current.code;
-  const selectedCountry = countryCode ? countryCode : "";
+  const currCountry =
+    typeof window !== "undefined" && localStorage.getItem("country_code");
+  const selectedCountry = currCountry !== null ? currCountry : "";
   const selectedLang = currLang !== null ? currLang : locale;
 
   useEffect(() => {
     localStorage.setItem("language_code", `${selectedLang}`);
-    localStorage.setItem("country_code", `${selectedCountry}`);
-  }, [selectedCountry, selectedLang]);
+    if (query.country !== undefined) {
+      localStorage.setItem("country_code", `${query.country}`);
+    } else {
+      localStorage.setItem("country_code", `${selectedCountry}`);
+    }
+  }, []);
 
   useEffect(() => {
     push(`${pathname}?country=${selectedCountry}`, asPath, {

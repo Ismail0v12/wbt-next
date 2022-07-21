@@ -12,7 +12,6 @@ import { UserDataInterface } from "../../../Interfaces/UserDataInterface";
 import { getData, putData } from "../../../api/BaseApi";
 import Spinner from "../../../components/spinner";
 import TranslationContext from "../../../providers/translation-context";
-import default_image_user from "../../../components/assets/images/default_user_image.png";
 import styles from "../style.module.css";
 
 const UserPageForm = () => {
@@ -87,7 +86,7 @@ const UserPageForm = () => {
             src={
               image
                 ? "https://whitebridge.site" + image
-                : default_image_user.src
+                : "https://whitebridge.site/static/images/" + "default_img.png"
             }
             alt="whitebridge.club"
           />

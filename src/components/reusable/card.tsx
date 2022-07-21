@@ -15,7 +15,6 @@ import ChevronRightIcon from "../assets/icons/ChevronRightIcon";
 import { ProductInterface } from "../../Interfaces/ProductInterface";
 import { ShareLinksInterface } from "../../Interfaces/ShareLinksInterface";
 import CountrySelectContext from "../../providers/country-select-context";
-import { useRouter } from "next/router";
 
 interface CardProps {
   readonly cardData: ProductInterface | undefined;
@@ -29,8 +28,6 @@ const Card = ({ cardData }: CardProps) => {
   const { shareLinks } = useContext(ShareLinksContext);
   const { translations } = useContext(TranslationContext);
   const { selectedCountry } = useContext(CountrySelectContext);
-  const { locale } = useRouter();
-
   // useEffect(() => {
   //   if (isAuthorized && cardData?.like != null) {
   //     setLiked({ id: cardData.like.id });
@@ -140,7 +137,7 @@ const Card = ({ cardData }: CardProps) => {
                     target="_blank"
                     href={
                       prefix_link +
-                      `https://whitebridge.club/${locale}/product/` +
+                      "https://whitebridge.club/product/" +
                       cardData?.id +
                       `?country=${selectedCountry}`
                     }

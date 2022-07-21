@@ -1,6 +1,4 @@
 import Link, { LinkProps } from "next/link";
-import { useContext } from "react";
-import CountrySelectContext from "../../providers/country-select-context";
 
 interface LinkQueryProps extends LinkProps {
   readonly children: React.ReactNode;
@@ -9,7 +7,11 @@ interface LinkQueryProps extends LinkProps {
 }
 
 export function LinkQuery({ to, children, href, ...props }: LinkQueryProps) {
-  const { selectedCountry } = useContext(CountrySelectContext);
-
-  return <Link href={href + `?country=${selectedCountry}`}>{children}</Link>;
+  const currentCountry =
+    typeof window !== "undefined" ? localStorage.getItem("country_code") : "";
+  const countryCode =
+    currentCountry === null || currentCountry === undefined
+      ? ""
+      : currentCountry;
+  return <Link href={href + `?country=${countryCode}`}>{children}</Link>;
 }
