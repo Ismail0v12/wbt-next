@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from "react-toastify";
+import { MetaMaskProvider } from "metamask-react";
 
 import {
   TranslationContextProvider,
@@ -9,11 +10,10 @@ import {
   ShareLinksContextProvider,
   CountrySelectContextProvider,
 } from "../src/providers";
-import { MetaMaskProvider } from "metamask-react";
+import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
-import "react-toastify/dist/ReactToastify.css";
 import "../src/styles/bootstrap-grid.min.css";
 import "../src/styles/bootstrap-reboot.min.css";
 import "../src/styles/auth-layout.css";

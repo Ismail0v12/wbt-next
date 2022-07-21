@@ -99,7 +99,7 @@ function UserPageGetTokenTasks({
               <a
                 target="_blank"
                 style={{ textTransform: "lowercase" }}
-                href="https://t.me/Ismail0v12"
+                href="https://t.me/whitebridgesupport"
               >
                 {translations?.admin}
               </a>
@@ -119,7 +119,7 @@ function UserPageGetTokenTasks({
               <a
                 target="_blank"
                 style={{ textTransform: "lowercase" }}
-                href="https://t.me/Ismail0v12"
+                href="https://t.me/whitebridgesupport"
               >
                 {translations?.admin}
               </a>
@@ -130,7 +130,7 @@ function UserPageGetTokenTasks({
               {translations?.type_metamask_id}{" "}
               <a
                 target="_blank"
-                href="https://t.me/Ismail0v12"
+                href="https://t.me/whitebridgesupport"
                 style={{ textTransform: "lowercase" }}
               >
                 {translations?.tg_bot}
@@ -166,11 +166,14 @@ function UserPageGetTokenTasks({
                     : translations?.generated_link_will_be_here
                 }`}
               />
-              <Button
-                onClick={() => setConnect(true)}
-                text={`${translations?.total_clicks_through_link} ${userData?.total_refs}`}
-                type="button"
-              />
+              <div className={styles["task__import"]}>
+                <span>{translations?.condition_metamask}</span>
+                <Button
+                  onClick={() => setConnect(true)}
+                  text={`${translations?.total_clicks_through_link}:  ${userData?.total_refs}`}
+                  type="button"
+                />
+              </div>
             </div>
           </li>
         </ol>

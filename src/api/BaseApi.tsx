@@ -37,8 +37,9 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
     // Access Token was expired
     if (error.response.status === 401) {
       const storedToken =
-        sessionStorage.getItem("refreshSession") ||
-        localStorage.getItem("refresh");
+        (typeof window !== "undefined" &&
+          sessionStorage.getItem("refreshSession")) ||
+        (typeof window !== "undefined" && localStorage.getItem("refresh"));
 
       await axios
         .post(BASE_API + "/token/refresh/", {

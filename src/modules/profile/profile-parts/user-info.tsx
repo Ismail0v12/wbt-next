@@ -7,6 +7,7 @@ import AuthenticationContext from "../../../providers/authentication-context";
 import logo from "../../../components/assets/logos/logo.png";
 import TranslationContext from "../../../providers/translation-context";
 import UserInfoContext from "../../../providers/user-info-context";
+import default_image_user from "../../../components/assets/images/default_user_image.png";
 
 import styles from "../style.module.css";
 
@@ -59,7 +60,7 @@ const UserPageInfo = ({ setConnect }: UserPageInfoProps) => {
             src={
               userData?.photo
                 ? imageUrlValidator(userData?.photo)
-                : "https://whitebridge.site/static/images/default_img.png"
+                : default_image_user.src
             }
             alt="whitebridge.club"
           />
