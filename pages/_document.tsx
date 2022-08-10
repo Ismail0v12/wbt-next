@@ -4,20 +4,13 @@ function MyDocument() {
     <Html>
       <Head>
         <meta
-          name="description"
-          content="Meta description content goes here."
+          name="keywords"
+          content="White Bridge Club, white bridge club, whitebridgeclub, club, white, bridge, club whitebridge, wbt token,WBT token, affiliate markteting"
         />
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=UA-221444830-1"
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
         />
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || []; 
-            function gtag() {window.dataLayer.push(arguments)}
-            gtag("js", new Date()); gtag("config", "UA-221444830-1");
-          `}
-        </script>
       </Head>
       <body>
         <Main />

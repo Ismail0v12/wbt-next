@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { createContext, useEffect, useState } from "react";
-import { getData } from "../api/BaseApi";
+import { getCurrentCountry, getData } from "../api/BaseApi";
 import { CountryListOtherProps } from "../components/country-select";
 import { LanguageListProps } from "../components/language-select";
 
@@ -13,7 +13,7 @@ const CountrySelectContext = createContext<{
   selectCountryHandle: (text: string | number) => void;
   countryList: CountryListProps | undefined;
   languageList: LanguageListProps | undefined;
-  selectedCountry: string | false;
+  selectedCountry: string | any;
 }>({
   selectCountryHandle: (text: string | number) => {},
   countryList: undefined,
@@ -37,28 +37,27 @@ export function CountrySelectContextProvider({
   const currLang =
     typeof window !== "undefined" && localStorage.getItem("language_code");
   const countryCode = query.country ? query.country : countryList?.current.code;
-  const selectedCountry = countryCode ? countryCode : "";
+  const selectedCountry = countryCode ?? "";
   const selectedLang = currLang !== null ? currLang : locale;
 
   useEffect(() => {
     localStorage.setItem("language_code", `${selectedLang}`);
-    localStorage.setItem("country_code", `${selectedCountry}`);
+    localStorage.setItem("country_code", `${countryCode}`);
   }, [selectedCountry, selectedLang]);
 
   useEffect(() => {
-    push(`${pathname}?country=${selectedCountry}`, asPath, {
-      shallow: true,
+    push(`${pathname}?country=${countryCode}`, asPath, {
       locale: selectedLang,
     });
-  }, [countryList, selectedCountry]);
+  }, [countryList, countryCode, selectedLang]);
 
   useEffect(() => {
-    getData("/countries/languages/?", locale, selectedCountry)
+    getData("/countries/languages/?", locale, countryCode)
       .then((res) => {
         setLanguageList(res.data);
       })
       .catch((err) => console.log(err));
-    getData("/countries/list/?", "en", selectedCountry)
+    getCurrentCountry("/countries/list/")
       .then((res) => {
         setCountryList(res.data);
       })

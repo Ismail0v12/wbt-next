@@ -1,19 +1,19 @@
 import React from "react";
-import Image from "next/image";
 import useSWR from "swr";
 import { getData } from "../../api/BaseApi";
 
 interface AuthPartnerDataProp {
   id: number;
-  image: string;
+  photo: string;
 }
 
 const AuthPartners = () => {
   const { data } = useSWR("/partners/?", getData);
 
-  const images = data?.data.map(({ image, id }: AuthPartnerDataProp) => (
-    <Image key={id} src={image} alt="whitebridge.club" />
+  const images = data?.data.map(({ photo, id }: AuthPartnerDataProp) => (
+    <img src={photo} alt="White Bridge Club" key={id} />
   ));
+
   return (
     <>
       {data?.data.length === 0 ? null : (

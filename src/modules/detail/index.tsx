@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BaseNavigation } from "../../components/base-navigation";
 import { Footer } from "../../components/footer";
@@ -12,21 +13,22 @@ interface DetailPageProps {
 }
 
 function DetailPage({ data }: DetailPageProps) {
-  const [loading, setLoading] = useState(true);
+  const { query, locale } = useRouter();
+
   useEffect(() => {
-    const iframeDoc = document.getElementById(
-      "detail-page__iframe"
-    ) as HTMLIFrameElement;
-    if (iframeDoc.contentDocument?.readyState === "complete") {
-      setLoading(false);
-    }
+    const isClient = typeof window !== "undefined";
+    isClient && window.open(data?.link);
+    isClient &&
+      window.location.replace(
+        `https://whitebridge.club/${locale}/category/${data.category.id}?country=${query.country}`
+      );
   }, []);
 
   return (
     <div className={styles["detail-page"]}>
       <ParticlesAnime />
       <BaseNavigation />
-      {loading && <Spinner />}
+      {!data && <Spinner />}
       <iframe
         src={data?.link}
         id="detail-page__iframe"

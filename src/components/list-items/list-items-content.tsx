@@ -2,7 +2,6 @@ import { useContext } from "react";
 import SearchIcon from "../assets/icons/SearchIcon";
 import { Card } from "../reusable/card";
 import { ProductInterface } from "../../Interfaces/ProductInterface";
-import SpinnerIcon from "../assets/icons/SpinnerIcon";
 import TranslationContext from "../../providers/translation-context";
 import styles from "./style.module.css";
 
@@ -12,7 +11,6 @@ interface ListItemContentProps {
   readonly setTerm?: (value: string) => void;
   readonly onSearch?: (e: React.ChangeEvent<HTMLFormElement>) => void;
   readonly title: string | undefined;
-  readonly loading?: boolean;
 }
 
 const ListItemsContent = ({
@@ -21,7 +19,6 @@ const ListItemsContent = ({
   setTerm,
   onSearch,
   title,
-  loading,
 }: ListItemContentProps) => {
   const { translations } = useContext(TranslationContext);
 
@@ -48,17 +45,14 @@ const ListItemsContent = ({
             </button>
           </div>
         </form>
-        {loading ? (
-          <SpinnerIcon />
-        ) : (
-          <div className="row gy-4">
-            {content?.length !== 0 ? (
-              content
-            ) : (
-              <h4 className="no-content">{translations?.no_content_found}</h4>
-            )}
-          </div>
-        )}
+
+        <div className="row gy-4">
+          {content?.length !== 0 ? (
+            content
+          ) : (
+            <h4 className="no-content">{translations?.no_content_found}</h4>
+          )}
+        </div>
       </div>
     </div>
   );

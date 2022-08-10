@@ -1,15 +1,11 @@
-import dynamic from "next/dynamic";
 import Head from "next/head";
 import { GetServerSideProps, NextPage } from "next";
 import { getData } from "../src/api/BaseApi";
-import Spinner from "../src/components/spinner";
+import HomePage from "../src/modules/home";
 
-const HomePage = dynamic(() => import("../src/modules/home"), {
-  loading: () => <Spinner />,
-});
-
-const Home: NextPage<{ translations: any; currLang: any }> = ({
+const Home: NextPage<{ translations: any; homeData: any }> = ({
   translations,
+  homeData,
 }) => {
   return (
     <>
@@ -40,7 +36,7 @@ const Home: NextPage<{ translations: any; currLang: any }> = ({
         {/* <!-- Facebook Meta Tags --> */}
         <meta property="og:url" content="https://whitebridge.club" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={`White Bridge Club`} />
+        <meta property="og:title" content="White Bridge Club" />
         <meta
           property="og:description"
           content={`${translations.about_descr}`}
@@ -59,21 +55,26 @@ const Home: NextPage<{ translations: any; currLang: any }> = ({
         <meta name="twitter:image" content="https://whitebridge.club/wbt.png" />
       </Head>
 
-      <HomePage translations={translations} />
+      <HomePage translations={translations} homeData={homeData} />
     </>
   );
 };
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  query,
+}) => {
+  const currentCountry =
+    typeof query.country !== "undefined" ? query.country : "";
+  const homeData = await getData("/entities/home/?", locale, currentCountry);
   const translations = await getData("/translations/?", locale, "");
-  const currLang = locale?.length !== 0 ? locale : "en";
 
   return {
     props: {
       translations: translations.data,
-      currLang,
+      homeData: homeData.data,
     },
   };
 };

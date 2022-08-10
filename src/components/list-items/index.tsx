@@ -9,7 +9,6 @@ import styles from "./style.module.css";
 interface ListItemsProps {
   readonly data: ProductInterface[] | undefined;
   readonly banner?: BannerInterface[] | undefined;
-  readonly loading: boolean | undefined;
   readonly term?: string;
   readonly setTerm?: (value: string) => void;
   readonly onSearch?: (e: React.ChangeEvent<HTMLFormElement>) => void;
@@ -19,7 +18,6 @@ interface ListItemsProps {
 const ListItems = ({
   data,
   banner,
-  loading,
   setTerm,
   term,
   onSearch,
@@ -36,7 +34,6 @@ const ListItems = ({
         term={term}
         title={title}
         onSearch={onSearch}
-        loading={loading}
       />
     </div>
   );

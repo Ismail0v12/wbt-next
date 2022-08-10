@@ -74,6 +74,11 @@ const axiosApi = setupInterceptorsTo(
   })
 );
 
+export async function getCurrentCountry(url: string) {
+  const res = await axiosApi.get(url);
+  return res;
+}
+
 export async function getData(url: string, lang?: any, country?: any) {
   const res = await axiosApi.get(url + `lang=${lang}&country=${country}`);
   return res;

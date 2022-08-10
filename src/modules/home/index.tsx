@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import HomePageBanner from "./home-banner";
 import HomePageContent from "./home-content";
 
@@ -10,39 +9,28 @@ import Spinner from "../../components/spinner";
 import { HomePageInterface } from "../../Interfaces/HomePageInterface";
 import BaseLayout from "../../layouts/base-layout";
 import styles from "./style.module.css";
-import { useRouter } from "next/router";
-import { getData } from "../../api/BaseApi";
+import HomePageNavbar from "./home-navbar";
 
 interface HomePageProps {
   readonly translations: any;
+  readonly homeData: any;
 }
 
-const HomePageNavbar = dynamic(() => import("./home-navbar"), {
-  ssr: false,
-});
-
-const HomePage = ({ translations }: HomePageProps) => {
-  const { locale, query } = useRouter();
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    getData("/entities/home/?", locale, query.country)
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
-  }, [locale, query.country]);
-
-  if (!data) {
+const HomePage = ({ translations, homeData }: HomePageProps) => {
+  if (!homeData) {
     return <Spinner />;
   }
 
-  const carouselContent = data.map((item: HomePageInterface, index: number) => (
-    <HomePageContent
-      key={item.category.id}
-      data={item.results}
-      number={index + 1}
-      title={item.category.title}
-    />
-  ));
+  const carouselContent = homeData?.map(
+    (item: HomePageInterface, index: number) => (
+      <HomePageContent
+        key={item.category.id}
+        data={item.results}
+        number={index + 1}
+        title={item.category.title}
+      />
+    )
+  );
 
   return (
     <BaseLayout>

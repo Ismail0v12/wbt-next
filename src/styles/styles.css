@@ -43,17 +43,7 @@ body {
   justify-content: center;
   padding: 15px 0;
   text-decoration: none;
-  animation: buttonAnimate 1s linear alternate infinite;
-}
-@keyframes buttonAnimate {
-  from {
-    background-color: transparent;
-    color: var(--yellow);
-  }
-  to {
-    background-color: var(--yellow);
-    color: #000;
-  }
+  transition: all 0.3s ease;
 }
 
 .button span {
@@ -66,18 +56,15 @@ body {
   top: 5px;
   width: 8px;
   height: 12px;
-  animation: iconAnimate 1s linear alternate infinite;
 }
 
-@keyframes iconAnimate {
-  from {
-    transform: translateX(0);
-    fill: var(--yellow);
-  }
-  to {
-    transform: translateX(5px);
-    fill: var(--black);
-  }
+.button:hover svg {
+  fill: var(--black);
+}
+
+.button:hover {
+  background-color: var(--yellow);
+  color: var(--black);
 }
 
 .swiper-pagination-bullet {
@@ -90,10 +77,6 @@ body {
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: var(--yellow) !important;
-}
-
-.button:hover svg {
-  fill: var(--black);
 }
 
 input:-webkit-autofill,

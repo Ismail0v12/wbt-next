@@ -29,8 +29,7 @@ const Card = ({ cardData }: CardProps) => {
   const { shareLinks } = useContext(ShareLinksContext);
   const { translations } = useContext(TranslationContext);
   const { selectedCountry } = useContext(CountrySelectContext);
-  const { locale } = useRouter();
-
+  const { locale, push } = useRouter();
   // useEffect(() => {
   //   if (isAuthorized && cardData?.like != null) {
   //     setLiked({ id: cardData.like.id });
@@ -63,22 +62,33 @@ const Card = ({ cardData }: CardProps) => {
         <div
           className="card__img"
           onClick={() => {
-            postView(cardData?.id);
             setViews((view) => view && view++);
           }}
         >
-          <LinkQuery href={`/product/${cardData?.id}`} passHref>
-            <a>
-              <Image
-                // @ts-ignore
-                src={cardData?.photos[0]}
-                height={328}
-                width={436}
-                objectFit="contain"
-                alt={cardData?.title}
-              />
-            </a>
-          </LinkQuery>
+          <span
+            onClick={() =>
+              push(
+                {
+                  pathname: `/category/${cardData?.category.id}/${cardData?.id}?country=${selectedCountry}`,
+                  query: { id: cardData?.category.id, productId: cardData?.id },
+                },
+                `/category/${cardData?.category.id}/${cardData?.id}?country=${selectedCountry}`,
+                {
+                  locale,
+                }
+              )
+            }
+          >
+            <Image
+              // @ts-ignore
+              src={cardData?.photos[0]}
+              height={328}
+              width={436}
+              objectFit="contain"
+              alt={cardData?.title}
+            />
+          </span>
+
           {cardData?.sale !== null && (
             <div className="card__sale">
               <span>SALE -{cardData?.sale}%</span>
@@ -87,7 +97,10 @@ const Card = ({ cardData }: CardProps) => {
         </div>
         <div className="card__body">
           <div className="card__text">
-            <LinkQuery passHref href={`/category/${cardData?.category.id}/`}>
+            <LinkQuery
+              passHref
+              href={`/category/${cardData?.category.id}?country=${selectedCountry}`}
+            >
               <span>{cardData?.category.title}</span>
             </LinkQuery>
             <h4>{`${cardData?.title} ${cardData?.title_2}`}</h4>
@@ -115,14 +128,21 @@ const Card = ({ cardData }: CardProps) => {
               </span>
             </div>
           </div>
-          <LinkQuery passHref href={`/product/${cardData?.id}/`}>
-            <a className="button">
-              <span>
-                {translations?.see_more}
-                <ChevronRightIcon />
-              </span>
-            </a>
-          </LinkQuery>
+          <a
+            onClick={() => {
+              postView(cardData?.id);
+              setViews((view) => view && view + 1);
+            }}
+            href={cardData?.link}
+            target="_blank"
+            rel="noreferrer"
+            className="button"
+          >
+            <span>
+              {translations?.see_more}
+              <ChevronRightIcon />
+            </span>
+          </a>
         </div>
       </div>
 
@@ -140,9 +160,7 @@ const Card = ({ cardData }: CardProps) => {
                     target="_blank"
                     href={
                       prefix_link +
-                      `https://whitebridge.club/${locale}/product/` +
-                      cardData?.id +
-                      `?country=${selectedCountry}`
+                      `https://whitebridge.club/${locale}/category/${cardData?.category.id}/${cardData?.id}?country=${selectedCountry}`
                     }
                     rel="noreferrer"
                     key={id}

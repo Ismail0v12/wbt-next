@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { getData } from "../../../src/api/BaseApi";
@@ -9,17 +9,23 @@ const ListPage = dynamic(() => import("../../../src/modules/list"), {
 });
 
 export default function List(props: any) {
-  const { data, translations } = props;
+  const { data, translations, details } = props;
   return (
     <>
       <Head>
-        <title>White Bridge Club | {data?.category.title}</title>
+        <title>{data?.category.title} | White Bridge Club </title>
         <meta property="description" content={`${translations?.about_descr}`} />
-        <meta property="url" content="https://whitebridge.club" />
+        <meta
+          property="url"
+          content={`https://whitebridge.club/${details?.locale}/${details?.categoryId}?country=${details.currentCountry}`}
+        />
         <meta property="type" content="website" />
 
-        <meta property="og:url" content="https://whitebridge.club" />
-        <meta property="og:title" content={`White Bridge Club `} />
+        <meta
+          property="og:url"
+          content={`https://whitebridge.club/${details?.locale}/${details?.categoryId}?country=${details.currentCountry}`}
+        />
+        <meta property="og:title" content="White Bridge Club" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={`White Bridge Club`} />
         <meta
@@ -34,7 +40,10 @@ export default function List(props: any) {
         <meta name="description" content={`${translations?.about_descr}`} />
 
         {/* <!-- Facebook Meta Tags --> */}
-        <meta property="og:url" content="https://whitebridge.club" />
+        <meta
+          property="og:url"
+          content={`https://whitebridge.club/${details?.locale}/${details?.categoryId}?country=${details.currentCountry}`}
+        />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`White Bridge Club`} />
         <meta
@@ -46,7 +55,10 @@ export default function List(props: any) {
         {/* <!-- Twitter Meta Tags --> */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="https://whitebridge.club" />
-        <meta property="twitter:url" content="https://whitebridge.club" />
+        <meta
+          property="twitter:url"
+          content={`https://whitebridge.club/${details?.locale}/${details?.categoryId}?country=${details.currentCountry}`}
+        />
         <meta name="twitter:title" content={`White Bridge Club`} />
         <meta
           name="twitter:description"
@@ -54,27 +66,22 @@ export default function List(props: any) {
         />
         <meta name="twitter:image" content="https://whitebridge.club/wbt.png" />
       </Head>
-      <ListPage />
+      <ListPage data={data} />
     </>
   );
 }
 
-export const getStaticPaths: GetStaticPaths = ({ locales }) => {
-  return {
-    paths: [
-      { params: { id: "2", locales } },
-      { params: { id: "3", locales } },
-      { params: { id: "5", locales } },
-    ],
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  locale,
+  query,
+}) => {
+  const currentCountry =
+    typeof query.country !== "undefined" ? query.country : "";
   const data = await getData(
     `/entities/${params?.id}/per-category/?`,
     locale,
-    ""
+    currentCountry
   );
   const translations = await getData("/translations/?", locale, "");
 
@@ -82,6 +89,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     props: {
       data: data.data,
       translations: translations.data,
+      details: { categoryId: params?.id, locale, currentCountry },
     },
   };
 };
