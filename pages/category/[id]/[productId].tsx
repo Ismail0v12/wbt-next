@@ -1,14 +1,8 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import { getData } from "../../../src/api/BaseApi";
 import SpinnerIcon from "../../../src/components/assets/icons/SpinnerIcon";
 import DetailPage from "../../../src/modules/detail";
-
-// const DetailPage = dynamic(() => import("../../../src/modules/detail"), {
-//   ssr: false,
-//   loading: () => <SpinnerIcon />,
-// });
 
 function Detail(props: any) {
   const { detailData, details } = props;
@@ -27,13 +21,13 @@ function Detail(props: any) {
         />
         <meta
           property="url"
-          content={`https://whitebridge.club/${details.locale}/product/${detailData?.id}?country=${details.currentCountry}`}
+          content={`https://whitebridge.club/${details.locale}/category/${detailData?.category.id}/${detailData?.id}?country=${details.currentCountry}`}
         />
         <meta property="type" content="website" />
 
         <meta
           property="og:url"
-          content={`https://whitebridge.club/${details.locale}/product/${detailData?.id}?country=${details.currentCountry}`}
+          content={`https://whitebridge.club/${details.locale}/category/${detailData?.category.id}/${detailData?.id}?country=${details.currentCountry}`}
         />
         <meta
           property="og:title"
@@ -58,7 +52,7 @@ function Detail(props: any) {
         {/* <!-- Facebook Meta Tags --> */}
         <meta
           property="og:url"
-          content={`https://whitebridge.club/${details.locale}/product/${detailData?.id}?country=${details.currentCountry}`}
+          content={`https://whitebridge.club/${details.locale}/category/${detailData?.category.id}/${detailData?.id}?country=${details.currentCountry}`}
         />
         <meta property="og:type" content="website" />
         <meta
@@ -79,7 +73,7 @@ function Detail(props: any) {
         <meta property="twitter:domain" content={`https://whitebridge.club`} />
         <meta
           property="twitter:url"
-          content={`https://whitebridge.club/${details.locale}/product/${detailData?.id}?country=${details.currentCountry}`}
+          content={`https://whitebridge.club/${details.locale}/category/${detailData?.category.id}/${detailData?.id}?country=${details.currentCountry}`}
         />
         <meta name="twitter:title" content="White Bridge Club" />
         <meta
@@ -111,6 +105,9 @@ export const getServerSideProps: GetServerSideProps = async ({
     locale,
     currentCountry
   );
+
+  console.log(data.data);
+
   const translations = await getData("/translations/?", locale, currentCountry);
 
   return {
