@@ -21,6 +21,7 @@ const HomePage = ({ translations, homeData }: HomePageProps) => {
     return <Spinner />;
   }
 
+
   const carouselContent = homeData?.map(
     (item: HomePageInterface, index: number) => (
       <HomePageContent

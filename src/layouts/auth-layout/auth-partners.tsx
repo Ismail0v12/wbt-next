@@ -1,6 +1,6 @@
 import React from "react";
 import useSWR from "swr";
-import { getData } from "../../api/BaseApi";
+import { getCurrentCountry } from "../../api/BaseApi";
 
 interface AuthPartnerDataProp {
   id: number;
@@ -8,7 +8,7 @@ interface AuthPartnerDataProp {
 }
 
 const AuthPartners = () => {
-  const { data } = useSWR("/partners/?", getData);
+  const { data } = useSWR("/partners/?", getCurrentCountry);
 
   const images = data?.data.map(({ photo, id }: AuthPartnerDataProp) => (
     <img src={photo} alt="White Bridge Club" key={id} />

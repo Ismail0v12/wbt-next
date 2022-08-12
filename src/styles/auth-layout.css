@@ -234,7 +234,12 @@
   }
 
   .auth__partners {
-    padding: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 30px;
+    gap: 27px;
+  }
+  .auth__partners img {
+    height: 40px;
   }
 
   .auth__lang > div:first-child {

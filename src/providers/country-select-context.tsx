@@ -37,27 +37,27 @@ export function CountrySelectContextProvider({
   const currLang =
     typeof window !== "undefined" && localStorage.getItem("language_code");
   const countryCode = query.country ? query.country : countryList?.current.code;
-  const selectedCountry = countryCode ?? "";
+  const selectedCountry = typeof countryCode !== "undefined" ? countryCode : "";
   const selectedLang = currLang !== null ? currLang : locale;
 
   useEffect(() => {
     localStorage.setItem("language_code", `${selectedLang}`);
-    localStorage.setItem("country_code", `${countryCode}`);
+    localStorage.setItem("country_code", `${selectedCountry}`);
   }, [selectedCountry, selectedLang]);
 
   useEffect(() => {
-    push(`${pathname}?country=${countryCode}`, asPath, {
+    push(`${pathname}?country=${selectedCountry}`, asPath, {
       locale: selectedLang,
     });
-  }, [countryList, countryCode, selectedLang]);
+  }, [countryList, selectedCountry, selectedLang]);
 
   useEffect(() => {
-    getData("/countries/languages/?", locale, countryCode)
+    getData("/countries/languages/?", selectedLang, selectedCountry)
       .then((res) => {
         setLanguageList(res.data);
       })
       .catch((err) => console.log(err));
-    getCurrentCountry("/countries/list/")
+    getData("/countries/list/?", "", selectedCountry)
       .then((res) => {
         setCountryList(res.data);
       })

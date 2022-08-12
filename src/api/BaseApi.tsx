@@ -80,7 +80,11 @@ export async function getCurrentCountry(url: string) {
 }
 
 export async function getData(url: string, lang?: any, country?: any) {
-  const res = await axiosApi.get(url + `lang=${lang}&country=${country}`);
+  const currLang = lang ? lang : "";
+  const currCountry = country ? country : "";
+  const res = await axiosApi.get(
+    url + `lang=${currLang}&country=${currCountry}`
+  );
   return res;
 }
 

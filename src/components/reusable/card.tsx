@@ -65,19 +65,9 @@ const Card = ({ cardData }: CardProps) => {
             setViews((view) => view && view++);
           }}
         >
-          <span
-            onClick={() =>
-              push(
-                {
-                  pathname: `/category/${cardData?.category.id}/${cardData?.id}?country=${selectedCountry}`,
-                  query: { id: cardData?.category.id, productId: cardData?.id },
-                },
-                `/category/${cardData?.category.id}/${cardData?.id}?country=${selectedCountry}`,
-                {
-                  locale,
-                }
-              )
-            }
+          <a
+            href={cardData?.link}
+            target="_blank"
           >
             <Image
               // @ts-ignore
@@ -87,7 +77,7 @@ const Card = ({ cardData }: CardProps) => {
               objectFit="contain"
               alt={cardData?.title}
             />
-          </span>
+          </a>
 
           {cardData?.sale !== null && (
             <div className="card__sale">
@@ -168,11 +158,11 @@ const Card = ({ cardData }: CardProps) => {
                     <h5>{title}</h5>
                     <Image src={icon} width={25} height={25} alt={title} />
                   </a>
-                )
+                ),
               )}
             </div>
           </Modal>,
-          document.getElementById("__next") as HTMLDivElement
+          document.getElementById("__next") as HTMLDivElement,
         )}
     </>
   );

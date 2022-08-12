@@ -147,7 +147,7 @@
   }
 }
 
-.card__img span {
+.card__img a {
   display: block;
 }
 
