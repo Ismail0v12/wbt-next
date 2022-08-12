@@ -68,6 +68,8 @@ const Card = ({ cardData }: CardProps) => {
           <a
             href={cardData?.link}
             target="_blank"
+            rel="noreferrer"
+
           >
             <Image
               // @ts-ignore
