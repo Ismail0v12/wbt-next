@@ -34,6 +34,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, minimum-scale=1.0, user-scalable=no target-densitydpi=device-dpi"
         />
+        <link rel="manifest" href="/manifest.json" />
+
         <meta
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
