@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import HomePageBanner from "./home-banner";
 import HomePageContent from "./home-content";
-
 import Logo from "../../components/assets/logos/logo.png";
 import { ParticlesAnime } from "../../components/particles-anime";
 import Spinner from "../../components/spinner";
@@ -20,7 +19,6 @@ const HomePage = ({ translations, homeData }: HomePageProps) => {
   if (!homeData) {
     return <Spinner />;
   }
-
 
   const carouselContent = homeData?.map(
     (item: HomePageInterface, index: number) => (
