@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="keywords"
           content="White Bridge Club, white bridge club, whitebridgeclub, club, white, bridge, club whitebridge, wbt token,WBT token, affiliate markteting"
         />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, minimum-scale=1.0, user-scalable=no target-densitydpi=device-dpi"
