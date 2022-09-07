@@ -15,6 +15,7 @@ const ListPage = ({ data }: ListPageProps) => {
   );
   const [contentLoading, setContentLoading] = useState(false);
   const [term, setTerm] = useState("");
+  const [currentData, setData] = useState<{} | any>(data);
   const location = useRouter();
 
   const queryid = location.query.id ? location.query.id : false;
@@ -34,7 +35,7 @@ const ListPage = ({ data }: ListPageProps) => {
   }, [queryid, location.query.country, location.locale]);
 
   function handleForm(e: React.ChangeEvent) {
-    setLoading(true);
+    setContentLoading(true);
     e.preventDefault();
     getData(
       `/entities/${location.query.id}/per-category/?term=${term}&`,
@@ -53,12 +54,12 @@ const ListPage = ({ data }: ListPageProps) => {
             results: res.data.results,
           };
         });
-        setLoading(false);
+        setContentLoading(false);
       })
       .catch((err) => {
         if (err) {
           alert("Something went wron please try again!");
-          setLoading(false);
+          setContentLoading(false);
         }
       });
   }
@@ -66,11 +67,11 @@ const ListPage = ({ data }: ListPageProps) => {
   return (
     <section className="list-page">
       <ListItems
-        data={data?.results}
+        data={currentData?.results}
         banner={banner}
         setTerm={setTerm}
         term={term}
-        title={data.category?.title}
+        title={currentData.category?.title}
         onSearch={handleForm}
       />
       {contentLoading && <LoadingIcon />}

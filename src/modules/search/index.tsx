@@ -28,7 +28,7 @@ function SearchPage() {
   return (
     <ListItems
       data={data?.results}
-      loading={loading}
+      // loading={loading}
       term={term}
       setTerm={setTerm}
       onSearch={onSearch}
