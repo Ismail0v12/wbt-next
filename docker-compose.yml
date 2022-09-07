@@ -2,10 +2,12 @@ version: "3.3"
 
 services:
   frontend:
+    restart: always
     build:
       context: .
     ports:
-     - 3000:3000
+      - 3000:3000
     expose:
-     - 3000
-    
+      - 3000
+    dns:
+      - 8.8.8.8

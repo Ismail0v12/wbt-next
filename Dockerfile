@@ -1,14 +1,12 @@
-FROM node:latest
-
-RUN mkdir /frontend
+FROM node:16.17.0
 
 WORKDIR /frontend
 
-COPY ./package.json /frontend
+COPY ./package.json .
 
 RUN yarn install
 
-COPY . /frontend
+COPY . .
 
 RUN yarn build
 
