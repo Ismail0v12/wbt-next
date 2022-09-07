@@ -2,7 +2,11 @@
 const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
 
-const baseConfig = {
+const baseConfig = withPWA({
+  pwa: {
+    dest: "public",
+    runtimeCaching,
+  },
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
@@ -35,7 +39,7 @@ const baseConfig = {
     defaultLocale: "en",
     localeDetection: false,
   },
-};
+});
 
 const configInProduction = withPWA({
   pwa: {
@@ -44,9 +48,10 @@ const configInProduction = withPWA({
   },
 });
 
-const nextConfig =
-  process.env.NODE_ENV === "production"
-    ? { ...baseConfig, ...configInProduction }
-    : baseConfig;
+const nextConfig = baseConfig;
+
+// process.env.NODE_ENV === "production"
+// ? { ...baseConfig, ...configInProduction }
+// : baseConfig;
 
 module.exports = nextConfig;
