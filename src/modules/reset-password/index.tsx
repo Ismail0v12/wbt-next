@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useRouter } from "next/router";
 import { LinkQuery } from "../../components/link-query";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -38,6 +39,8 @@ const ResetPasswordPage = () => {
       `${translations?.password_must_match}`
     ),
   });
+
+  const { push } = useRouter();
 
   function verfiyEmail(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -181,6 +184,7 @@ const ResetPasswordPage = () => {
                         theme: "dark",
                         type: "success",
                       });
+                      push("/login");
                     }
                   })
                   .catch((err) => {

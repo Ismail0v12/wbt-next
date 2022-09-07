@@ -21,6 +21,8 @@ function SocialSubscription({ country = "" }: SocialSubscriptionProps) {
       </a>
     </li>
   ));
+
+  console.log(links);
   return <ul>{links}</ul>;
 }
 

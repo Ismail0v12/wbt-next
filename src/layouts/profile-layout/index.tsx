@@ -10,17 +10,17 @@ interface ProfileLayoutProps {
 
 export function ProfileLayout({ children }: ProfileLayoutProps) {
   const { access } = useContext(AuthenticationContext);
-  const { push, asPath } = useRouter();
+  const { push } = useRouter();
 
   if (typeof access === "string") {
     if (access.length === 0 || access === null) {
-      return <Spinner />;
+      push("/login");
     }
   }
 
   if (typeof access === "string") {
     if (access.length === 0 || access === null) {
-      push("/login", asPath);
+      return <Spinner />;
     }
   }
 

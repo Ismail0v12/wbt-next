@@ -1,12 +1,17 @@
 /** @type {import('next').NextConfig} */
+const withPWA = require("next-pwa");
+const runtimeCaching = require("next-pwa/cache");
 
-const nextConfig = {
+const baseConfig = {
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
     domains: ["localhost", "whitebridge.site"],
+  },
+  compiler: {
+    styledComponents: true,
   },
   i18n: {
     locales: [
@@ -28,7 +33,20 @@ const nextConfig = {
       "ja",
     ],
     defaultLocale: "en",
+    localeDetection: false,
   },
 };
+
+const configInProduction = withPWA({
+  pwa: {
+    dest: "public",
+    runtimeCaching,
+  },
+});
+
+const nextConfig =
+  process.env.NODE_ENV === "production"
+    ? { ...baseConfig, ...configInProduction }
+    : baseConfig;
 
 module.exports = nextConfig;

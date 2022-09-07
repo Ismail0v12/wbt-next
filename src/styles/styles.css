@@ -216,4 +216,7 @@ input:-webkit-autofill:focus {
   .image__icon {
     height: 41px;
   }
+  .swiper-pagination {
+    display: none;
+  }
 }
