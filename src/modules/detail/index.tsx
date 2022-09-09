@@ -28,7 +28,7 @@ function DetailPage({ data }: DetailPageProps) {
     }
   }
   if (isClient) {
-    window.open(data?.link);
+    window.open(data?.link, "_blank");
     redirectUser();
   }
 
