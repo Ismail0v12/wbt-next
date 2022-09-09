@@ -245,4 +245,8 @@
   .auth__lang > div:first-child {
     margin-right: 14px;
   }
+  .auth__subtitle {
+    font-size: 26px;
+    line-height: 23px;
+  }
 }

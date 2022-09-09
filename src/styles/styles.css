@@ -219,4 +219,11 @@ input:-webkit-autofill:focus {
   .swiper-pagination {
     display: none;
   }
+  .pincode-input-container {
+    gap: calc(100% - 95.4%);
+  }
+  .pincode-input-container input {
+    width: 45px !important;
+    height: 45px !important;
+  }
 }

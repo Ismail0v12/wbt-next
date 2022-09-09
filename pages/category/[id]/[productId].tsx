@@ -106,8 +106,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     currentCountry
   );
 
-  console.log(data.data);
-
   const translations = await getData("/translations/?", locale, currentCountry);
 
   return {

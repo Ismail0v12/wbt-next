@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { BaseNavigation } from "../../components/base-navigation";
 import { Footer } from "../../components/footer";
 import { ParticlesAnime } from "../../components/particles-anime";
@@ -15,9 +15,9 @@ interface DetailPageProps {
 function DetailPage({ data }: DetailPageProps) {
   const { query, locale } = useRouter();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    window.open(data?.link);
     const isClient = typeof window !== "undefined";
-    isClient && window.open(data?.link);
     isClient &&
       window.location.replace(
         `https://whitebridge.club/${locale}/category/${data.category.id}?country=${query.country}`

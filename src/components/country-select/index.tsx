@@ -45,17 +45,15 @@ const CountrySelect = () => {
         className={styles.country__selected}
         onClick={() => setOpenSelectCountry(true)}
       >
-        <span>{countryList?.current.title}</span>
+        <span>{countryList?.current.title?.substring(0, 5)}</span>
         <span>
           <ChevronDownIcon />
         </span>
         <span>
           {countryList?.current?.flag && (
-            <Image
+            <img
               src={`${countryList?.current?.flag}`}
               alt={`${countryList?.current.code}`}
-              width={36}
-              height={36}
             />
           )}
         </span>

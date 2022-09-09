@@ -154,5 +154,6 @@
   .country__selected img {
     width: 30px;
     height: 25px;
+    object-fit: cover;
   }
 }
