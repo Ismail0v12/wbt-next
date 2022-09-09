@@ -14,15 +14,17 @@ interface DetailPageProps {
 
 function DetailPage({ data }: DetailPageProps) {
   const { query, locale } = useRouter();
+  const isClient = typeof window !== "undefined";
 
-  useLayoutEffect(() => {
-    window.open(data?.link);
-    const isClient = typeof window !== "undefined";
-    isClient &&
-      window.location.replace(
-        `https://whitebridge.club/${locale}/category/${data.category.id}?country=${query.country}`
-      );
-  }, []);
+  async function redirectUser() {
+    await window.open(data?.link);
+    await window.location.replace(
+      `https://whitebridge.club/${locale}/category/${data.category.id}?country=${query.country}`
+    );
+  }
+  if (isClient) {
+    redirectUser();
+  }
 
   return (
     <div className={styles["detail-page"]}>
