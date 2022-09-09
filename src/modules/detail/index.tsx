@@ -16,13 +16,19 @@ function DetailPage({ data }: DetailPageProps) {
   const { query, locale } = useRouter();
   const isClient = typeof window !== "undefined";
 
-  async function redirectUser() {
-    await window.open(data?.link);
-    await window.location.replace(
-      `https://whitebridge.club/${locale}/category/${data.category.id}?country=${query.country}`
-    );
+  function redirectUser() {
+    try {
+      setTimeout(() => {
+        window.location.replace(
+          `https://whitebridge.club/${locale}/category/${data.category.id}?country=${query.country}`
+        );
+      }, 2000);
+    } catch (e) {
+      console.log(e);
+    }
   }
   if (isClient) {
+    window.open(data?.link);
     redirectUser();
   }
 
