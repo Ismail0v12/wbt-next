@@ -28,7 +28,11 @@ function DetailPage({ data }: DetailPageProps) {
     }
   }
   if (isClient) {
-    window.open(data.link, "popup");
+    const aTag = document.createElement("a");
+    aTag.href = data.link;
+    aTag.target = "_blank";
+    aTag.click();
+
     redirectUser();
   }
 

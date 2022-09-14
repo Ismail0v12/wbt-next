@@ -75,11 +75,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   locale,
   query,
+  req,
 }) => {
   const currentCountry =
     typeof query.country !== "undefined" ? query.country : "";
   const data = await getData(
-    `/entities/${params?.id}/per-category/?`,
+    `/entities/${query.id}/per-category/?`,
     locale,
     currentCountry
   );

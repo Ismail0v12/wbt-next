@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { ListItems } from "../../components/list-items";
 import { LoadingIcon } from "../../components/assets/icons/LoadingIcon";
@@ -29,6 +29,15 @@ const ListPage = ({ data }: ListPageProps) => {
       )
         .then((res) => {
           setBanner(res.data);
+        })
+        .catch((err) => console.log(err));
+      getData(
+        `/entities/${queryid}/per-category/?`,
+        location.locale,
+        location.query.country
+      )
+        .then((res) => {
+          setData(res.data);
         })
         .catch((err) => console.log(err));
     }
@@ -64,6 +73,12 @@ const ListPage = ({ data }: ListPageProps) => {
       });
   }
 
+  const title = useMemo(() => {
+    return currentData.category?.title;
+  }, [currentData.category?.title]);
+
+  console.log(title);
+
   return (
     <section className="list-page">
       <ListItems
@@ -71,7 +86,7 @@ const ListPage = ({ data }: ListPageProps) => {
         banner={banner}
         setTerm={setTerm}
         term={term}
-        title={currentData.category?.title}
+        title={title}
         onSearch={handleForm}
       />
       {contentLoading && <LoadingIcon />}
