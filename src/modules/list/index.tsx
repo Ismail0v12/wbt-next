@@ -15,12 +15,13 @@ const ListPage = ({ data }: ListPageProps) => {
   );
   const [contentLoading, setContentLoading] = useState(false);
   const [term, setTerm] = useState("");
-  const [currentData, setData] = useState<{} | any>(data);
+  const [currentData, setData] = useState<{} | any>();
   const location = useRouter();
 
   const queryid = location.query.id ? location.query.id : false;
 
   useEffect(() => {
+    setData(data);
     if (queryid !== false) {
       getData(
         `/banners/${queryid}/per-category/?`,
@@ -29,15 +30,6 @@ const ListPage = ({ data }: ListPageProps) => {
       )
         .then((res) => {
           setBanner(res.data);
-        })
-        .catch((err) => console.log(err));
-      getData(
-        `/entities/${queryid}/per-category/?`,
-        location.locale,
-        location.query.country
-      )
-        .then((res) => {
-          setData(res.data);
         })
         .catch((err) => console.log(err));
     }
@@ -73,11 +65,7 @@ const ListPage = ({ data }: ListPageProps) => {
       });
   }
 
-  const title = useMemo(() => {
-    return currentData.category?.title;
-  }, [currentData.category?.title]);
-
-  console.log(title);
+  useEffect(() => {}, []);
 
   return (
     <section className="list-page">
@@ -86,7 +74,7 @@ const ListPage = ({ data }: ListPageProps) => {
         banner={banner}
         setTerm={setTerm}
         term={term}
-        title={title}
+        title={currentData.category?.title}
         onSearch={handleForm}
       />
       {contentLoading && <LoadingIcon />}

@@ -28,7 +28,7 @@ function DetailPage({ data }: DetailPageProps) {
     }
   }
   if (isClient) {
-    const aTag = document.createElement("a");
+    const aTag = document.createElement("a") as HTMLAnchorElement;
     aTag.href = data.link;
     aTag.target = "_blank";
     aTag.click();

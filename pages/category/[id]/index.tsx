@@ -1,12 +1,7 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import { getData } from "../../../src/api/BaseApi";
-import Spinner from "../../../src/components/spinner";
-
-const ListPage = dynamic(() => import("../../../src/modules/list"), {
-  loading: () => <Spinner />,
-});
+import ListPage from "../../../src/modules/list";
 
 export default function List(props: any) {
   const { data, translations, details } = props;
@@ -75,7 +70,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   locale,
   query,
-  req,
 }) => {
   const currentCountry =
     typeof query.country !== "undefined" ? query.country : "";
