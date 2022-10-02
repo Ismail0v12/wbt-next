@@ -57,7 +57,7 @@ export function CountrySelectContextProvider({
         setLanguageList(res.data);
       })
       .catch((err) => console.log(err));
-    getData("/countries/list/?", "", selectedCountry)
+    getData("/countries/list/?", selectedLang, selectedCountry)
       .then((res) => {
         setCountryList(res.data);
       })

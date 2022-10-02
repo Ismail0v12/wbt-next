@@ -68,7 +68,7 @@ const setupInterceptorsTo = (axiosInstance: AxiosInstance): AxiosInstance => {
   return axiosInstance;
 };
 
-const axiosApi = setupInterceptorsTo(
+export const axiosApi = setupInterceptorsTo(
   axios.create({
     baseURL: BASE_API,
   })

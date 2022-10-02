@@ -21,7 +21,6 @@ const ListItemsContent = ({
   title,
 }: ListItemContentProps) => {
   const { translations } = useContext(TranslationContext);
-
   const content = data?.map((item) => (
     <div className="col-lg-4 col-md-6 col-6" key={item.id}>
       <Card cardData={item} />

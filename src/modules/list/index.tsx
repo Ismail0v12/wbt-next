@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { ListItems } from "../../components/list-items";
 import { LoadingIcon } from "../../components/assets/icons/LoadingIcon";
-import { getData } from "../../api/BaseApi";
+import { axiosApi, getData } from "../../api/BaseApi";
 import { BannerInterface } from "../../Interfaces/BannerInterface";
+import { Footer } from "../../components/footer";
 
 interface ListPageProps {
   readonly data: any;
@@ -33,6 +34,9 @@ const ListPage = ({ data }: ListPageProps) => {
         })
         .catch((err) => console.log(err));
     }
+    return () => {
+      setData({});
+    };
   }, [queryid, location.query.country, location.locale]);
 
   function handleForm(e: React.ChangeEvent) {
@@ -65,7 +69,42 @@ const ListPage = ({ data }: ListPageProps) => {
       });
   }
 
-  useEffect(() => {}, []);
+  const infinterScroll = useCallback(() => {
+    if (currentData.next !== null) {
+      axiosApi
+        .get(currentData.next)
+        .then((res) => {
+          setData(() => {
+            return {
+              category: {
+                title: res.data.category.title,
+              },
+              next: res.data.next,
+              previous: res.data.previous,
+              count: res.data.count,
+              results: [...currentData?.results, ...res.data.results],
+            };
+          });
+          setContentLoading(false);
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+    }
+  }, [location, setData, currentData]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", (e) => {
+      if (
+        currentData &&
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 400
+      ) {
+        infinterScroll();
+      }
+    });
+  }, [currentData]);
 
   return (
     <section className="list-page">
@@ -74,10 +113,11 @@ const ListPage = ({ data }: ListPageProps) => {
         banner={banner}
         setTerm={setTerm}
         term={term}
-        title={currentData.category?.title}
+        title={currentData?.category?.title}
         onSearch={handleForm}
       />
       {contentLoading && <LoadingIcon />}
+      <Footer />
     </section>
   );
 };
