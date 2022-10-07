@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import React, { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { BaseNavigation } from "../../components/base-navigation";
 import { Footer } from "../../components/footer";
 import { ParticlesAnime } from "../../components/particles-anime";
@@ -13,28 +12,9 @@ interface DetailPageProps {
 }
 
 function DetailPage({ data }: DetailPageProps) {
-  const { query, locale } = useRouter();
-  const isClient = typeof window !== "undefined";
-
-  function redirectUser() {
-    try {
-      setTimeout(() => {
-        window.location.replace(
-          `https://whitebridge.club/${locale}/category/${data.category.id}?country=${query.country}`
-        );
-      }, 2000);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  if (isClient) {
-    const aTag = document.createElement("a") as HTMLAnchorElement;
-    aTag.href = data.link;
-    aTag.target = "_blank";
-    aTag.click();
-
-    redirectUser();
-  }
+  useEffect(() => {
+    window.location.replace(data.link);
+  }, [data]);
 
   return (
     <div className={styles["detail-page"]}>
